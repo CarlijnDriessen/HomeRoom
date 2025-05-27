@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :bookings
   resources :listings
+  get "dashboard", to: "pages#dashboard", as: :dashboard
 end
