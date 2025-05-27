@@ -1,2 +1,14 @@
-<h1>Listings#index</h1>
-<p>Find me in app/views/listings/index.html.erb</p>
+<h1>Listings</h1>
+
+<% @listings.each do |listing| %>
+  <p><%= listing.title %></p>
+  <p><%= listing.description %></p>
+  <p>Price: <%= number_to_currency(listing.price) %></p>
+  <p>Category: <%= listing.category %></p>
+
+  <p>
+    <%= link_to "Show", listing_path(listing), class: "btn btn-primary" %>
+    <%= link_to "Edit", edit_listing_path(listing), class: "btn btn-secondary" %>
+    <%= link_to "Delete", listing_path(listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  </p>
+<% end %>
