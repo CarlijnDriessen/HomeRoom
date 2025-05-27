@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
-  before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy, :activate, :deactivate]
 
   def index
     @listings = Listing.all
@@ -40,6 +40,16 @@ class ListingsController < ApplicationController
   def destroy
     @listing.destroy
     redirect_to listings_path, status: :see_other
+  end
+
+  def activate
+    @listing.update(active: true)
+    redirect_to dashboard_path
+  end
+
+  def deactivate
+    @listing.update(active: false)
+    redirect_to dashboard_path
   end
 
   private

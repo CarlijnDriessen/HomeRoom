@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_booking, only: [:show, :edit, :update, :destroy, :accept, :reject]
 
   def index
     @bookings = Booking.all
@@ -39,6 +39,16 @@ class BookingsController < ApplicationController
   def destroy
     @booking.destroy
     redirect_to bookings_path, notice: 'Booking was successfully deleted.'
+  end
+
+  def accept
+    @booking.update(accepted: true)
+    redirect_to dashboard_path
+  end
+
+  def reject
+    @booking.update(accepted: false)
+    redirect_to dashboard_path
   end
 
   private
