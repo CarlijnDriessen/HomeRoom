@@ -1,0 +1,7 @@
+<%= simple_form_for @booking do |t| %>
+<%= t.input :comment %>
+<%= t.input :booking_date,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
+<%= t.submit %>
+<% end %>
