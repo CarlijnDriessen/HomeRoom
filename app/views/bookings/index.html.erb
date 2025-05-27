@@ -1,0 +1,11 @@
+<% @bookings.each do |booking| %>
+  <div class="booking">
+    <h2>Booking ID: <%= booking.id %></h2>
+    <p><strong>Customer Name:</strong> <%= booking.customer_name %></p>
+    <p><strong>Booking Date:</strong> <%= booking.booking_date.strftime("%B %d, %Y") %></p>
+    <p><strong>Status:</strong> <%= booking.accepted %></p>
+    <hr>
+  </div>
+<% end %>
+
+<%= link_to "Add Booking", new_booking_path, class: "btn btn-primary" %>

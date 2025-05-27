@@ -1,3 +1,4 @@
+
 <div class="container py-4">
   <h2 class="fw-bold mb-4">Yoga lesson</h2>
 
@@ -30,3 +31,32 @@
       </ul>
     </div>
   </div>
+
+<h1>Listing</h1>
+
+<p><strong>Title:</strong> <%= @listing.title %></p>
+<p><strong>Description:</strong> <%= @listing.description %></p>
+<p><strong>Price:</strong> <%= number_to_currency(@listing.price) %></p>
+<p><strong>Category:</strong> <%= @listing.category %></p>
+
+<p>
+  <%# <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary" %>
+  <%= link_to "Back to listings", listings_path, class: "btn btn-primary" %>
+  <%# <%= link_to "Delete", listing_path(@listing), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
+</p>
+<% if @listing.user == current_user %>
+  <p>
+    <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary" %>
+    <%= link_to "Delete", listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  </p>
+<% end %>
+<p>
+  <strong>Posted by:</strong> <%= @listing.user.email %>
+</p>
+<p>
+  <strong>Created at:</strong> <%= @listing.created_at.strftime("%B %d, %Y") %>
+</p>
+<p>
+  <strong>Updated at:</strong> <%= @listing.updated_at.strftime("%B %d, %Y") %>
+</p>
+
