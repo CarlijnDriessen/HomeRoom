@@ -1,1 +1,56 @@
-TBD
+<div data-controller="toggle">
+  <input type="checkbox" id="toggle" data-action="click->toggle#fire" class="toggleCheckbox mt-3 ml-5" />
+  <label for="toggle" class='toggleContainer'>
+    <div>Guest</div>   
+    <div>Host</div>
+  </label>
+</div>
+
+<div class="container">  	
+  <div data-toggle-target="togglableElement" class="d-none">
+    <h1>Host</h1>
+    <h4>My listings</h4>
+    <h6><em>Active Listings</em></h6>
+    <% @active_listings.each do |listing| %>
+      <p><%= listing.title %></p>
+    <% end %>
+
+    <h6><em>Inactive Listings</em></h6>
+    <% @inactive_listings.each do |listing| %>
+      <p><%= listing.title %></p>
+    <% end %>
+
+    <h4>Pending bookings</h4>
+    <% @host_pending_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
+
+    <h4>Confirmed bookings</h4>
+    <% @host_accepted_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
+
+    <h4>Rejected bookings</h4>
+    <% @host_rejected_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
+  </div>
+
+  <div>
+    <h1>Guest</h1>
+    <h4>Pending bookings</h4>
+    <% @guest_pending_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
+
+    <h4>Confirmed bookings</h4>
+    <% @guest_accepted_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
+
+    <h4>Rejected bookings</h4>
+    <% @guest_rejected_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
+  </div>
+</div>

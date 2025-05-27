@@ -13,21 +13,24 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @listing = Listing.find(params[:listing_id])
     @booking = Booking.new(booking_params)
     @booking.user = current_user
+    @booking.listing = @listing
     if @booking.save
-      redirect_to bookings_path, notice: 'Booking was successfully created.'
+      redirect_to listing_path(@listing), notice: 'Booking was successfully created.'
     else
-      render :new, alert: 'Error creating booking.'
+      redirect_to listing_path(@listing), notice: 'Booking failed to create.'
     end
   end
 
   def edit
+    @listing = @booking.listing
   end
 
   def update
     if @booking.update(booking_params)
-      redirect_to booking_path(@booking), notice: 'Booking was successfully updated.'
+      redirect_to bookings_path, notice: 'Booking was successfully updated.'
     else
       render :edit, alert: 'Error updating booking.'
     end
@@ -45,7 +48,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:listing_id, :comment, :booking_date)
+    params.require(:booking).permit(:comment, :booking_date)
   end
 
 end
