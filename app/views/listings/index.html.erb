@@ -1,3 +1,4 @@
+<%= link_to "New Listing", new_listing_path %>
 
 <h1>Listings</h1>
 
@@ -6,12 +7,18 @@
   <p><%= listing.description %></p>
   <p>Price: <%= number_to_currency(listing.price) %></p>
   <p>Category: <%= listing.category %></p>
-
   <p>
     <%= link_to "Show", listing_path(listing), class: "btn btn-primary" %>
-    <%= link_to "Edit", edit_listing_path(listing), class: "btn btn-secondary" %>
-    <%= link_to "Delete", listing_path(listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
   </p>
+  <% if listing.user == current_user %>
+    <p>
+      <%= link_to "Edit", edit_listing_path(listing), class: "btn btn-secondary" %>
+      <%= link_to listing_path(listing),
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+          <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+    </p>
+  <% end %>
 <% end %>
 
 <h1 class="text-center my-5">Listings#index</h1>

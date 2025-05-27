@@ -1,27 +1,19 @@
-<h1>Listing/h1>
+<h1>Listing</h1>
 
 <p><strong>Title:</strong> <%= @listing.title %></p>
 <p><strong>Description:</strong> <%= @listing.description %></p>
 <p><strong>Price:</strong> <%= number_to_currency(@listing.price) %></p>
 <p><strong>Category:</strong> <%= @listing.category %></p>
-<% if @listing.photo.attached? %>
-  <%= image_tag @listing.photo, size: "300x300" %>
-<% else %>
-  <p>No photo available</p>
-<% end %>
+
 <p>
-  <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary" %>
+  <%# <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary" %>
   <%= link_to "Back to listings", listings_path, class: "btn btn-primary" %>
-  <%= link_to "Delete", listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%# <%= link_to "Delete", listing_path(@listing), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
 </p>
 <% if @listing.user == current_user %>
   <p>
     <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary" %>
     <%= link_to "Delete", listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-  </p>
-<% else %>
-  <p>
-    <%= link_to "Contact Seller", new_message_path(listing_id: @listing.id), class: "btn btn-info" %>
   </p>
 <% end %>
 <p>
@@ -32,7 +24,4 @@
 </p>
 <p>
   <strong>Updated at:</strong> <%= @listing.updated_at.strftime("%B %d, %Y") %>
-</p>
-<p>
-  <strong>Views:</strong> <%= @listing.views %>
 </p>
