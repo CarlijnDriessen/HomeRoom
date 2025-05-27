@@ -1,3 +1,37 @@
+
+<div class="container py-4">
+  <h2 class="fw-bold mb-4">Yoga lesson</h2>
+
+  <div class="row g-3">
+    <!-- Main large image -->
+  <div class="col-md-8">
+    <img src="https://www.cibdol.nl/modules/psblog/uploads/1699013093.jpg" class="img-fluid rounded" alt="Main studio image">
+    </div>
+        <!-- Thumbnail images -->
+      <div class="col-md-4 d-flex flex-column gap-3">
+          <img src="https://thriveyoga.nl/wp-content/uploads/2021/05/Pilates-8-768x512.jpg" class="img-fluid rounded" alt="View 1">
+          <img src="https://s10.s3c.es/imag/_v0/1254x684/d/9/6/yoga-poses-esenciales.jpg" class="img-fluid rounded" alt="View 2">
+      </div>
+      </div>
+    </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="fw-bold mb-4">Description</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div class="col-md-4">
+      <h2 class="fw-bold mb-4">Details</h2>
+      <ul class="list-unstyled">
+        <li><strong>Location:</strong> Studio A</li>
+        <li><strong>Date:</strong> 2023-10-01</li>
+        <li><strong>Time:</strong> 10:00 AM - 11:00 AM</li>
+        <li><strong>Price:</strong> $20</li>
+      </ul>
+    </div>
+  </div>
+
 <h1>Listing</h1>
 
 <p><strong>Title:</strong> <%= @listing.title %></p>
@@ -25,3 +59,4 @@
 <p>
   <strong>Updated at:</strong> <%= @listing.updated_at.strftime("%B %d, %Y") %>
 </p>
+
