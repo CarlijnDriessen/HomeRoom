@@ -1,53 +1,77 @@
-<h1>Host</h1>
-<h4>My listings</h4>
-<h6><em>Active Listings</em></h6>
-  <% @active_listings.each do |listing| %>
-    <p><%= listing.title %></p>
-    <%= form_with url: deactivate_listing_path(listing), method: :patch, local: true do %>
-      <%= submit_tag "Set to inactive" %>
+<div data-controller="toggle">
+  <input type="checkbox" id="toggle" data-action="click->toggle#fire" class="toggleCheckbox mt-3 ml-5" />
+  <label for="toggle" class='toggleContainer'>
+    <div>Guest</div>
+    <div>Host</div>
+  </label>
+</div>
+
+<div class="container">
+  <div data-toggle-target="togglableElement" class="d-none">
+    <h1>Host</h1>
+    <h4>My listings</h4>
+    <h6><em>Active Listings</em></h6>
+      <% @active_listings.each do |listing| %>
+        <p><%= listing.title %></p>
+        <%= form_with url: deactivate_listing_path(listing), method: :patch, local: true do %>
+          <%= submit_tag "Set to inactive" %>
+        <% end %>
+      <% end %>
+      <h6><em>Inactive Listings</em></h6>
+      <% @inactive_listings.each do |listing| %>
+        <p><%= listing.title %></p>
+        <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
+          <%= submit_tag "Set to active" %>
+        <% end %>
+      <% end %>
+
+    <h4>Pending bookings</h4>
+      <% @host_pending_bookings.each do |booking| %>
+        <%= booking.listing.title %>
+        <%= form_with url: accept_booking_path(booking), method: :patch, local: true do %>
+          <%= submit_tag "Accept" %>
+        <% end %>
+        <%= form_with url: reject_booking_path(booking), method: :patch, local: true do %>
+          <%= submit_tag "Reject" %>
+        <% end %>
+      <% end %>
+
+    <h6><em>Inactive Listings</em></h6>
+    <% @inactive_listings.each do |listing| %>
+      <p><%= listing.title %></p>
     <% end %>
-  <% end %>
-  <h6><em>Inactive Listings</em></h6>
-  <% @inactive_listings.each do |listing| %>
-    <p><%= listing.title %></p>
-    <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
-      <%= submit_tag "Set to active" %>
+
+    <h4>Pending bookings</h4>
+    <% @host_pending_bookings.each do |booking| %>
+      <%= booking.listing.title %>
     <% end %>
-  <% end %>
 
-<h4>Pending bookings</h4>
-  <% @host_pending_bookings.each do |booking| %>
-    <%= booking.listing.title %>
-    <%= form_with url: accept_booking_path(booking), method: :patch, local: true do %>
-      <%= submit_tag "Accept" %>
+    <h4>Confirmed bookings</h4>
+    <% @host_accepted_bookings.each do |booking| %>
+      <%= booking.listing.title %>
     <% end %>
-    <%= form_with url: reject_booking_path(booking), method: :patch, local: true do %>
-      <%= submit_tag "Reject" %>
+
+    <h4>Rejected bookings</h4>
+    <% @host_rejected_bookings.each do |booking| %>
+      <%= booking.listing.title %>
     <% end %>
-  <% end %>
+  </div>
 
-<h4>Confirmed bookings</h4>
-<% @host_accepted_bookings.each do |booking| %>
-  <%= booking.listing.title %>
-<% end %>
+  <div>
+    <h1>Guest</h1>
+    <h4>Pending bookings</h4>
+    <% @guest_pending_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
 
-<h4>Rejected bookings</h4>
-<% @host_rejected_bookings.each do |booking| %>
-  <%= booking.listing.title %>
-<% end %>
+    <h4>Confirmed bookings</h4>
+    <% @guest_accepted_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
 
-<h1>Guest</h1>
-<h4>Pending bookings</h4>
-<% @guest_pending_bookings.each do |booking| %>
-  <%= booking.listing.title %>
-<% end %>
-
-<h4>Confirmed bookings</h4>
-<% @guest_accepted_bookings.each do |booking| %>
-  <%= booking.listing.title %>
-<% end %>
-
-<h4>Rejected bookings</h4>
-<% @guest_rejected_bookings.each do |booking| %>
-  <%= booking.listing.title %>
-<% end %>
+    <h4>Rejected bookings</h4>
+    <% @guest_rejected_bookings.each do |booking| %>
+      <%= booking.listing.title %>
+    <% end %>
+  </div>
+</div>
