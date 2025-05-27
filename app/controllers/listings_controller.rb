@@ -15,6 +15,7 @@ class ListingsController < ApplicationController
 
   def new
     @listing = Listing.new
+    @booking = Booking.new
   end
 
   def create
