@@ -13,9 +13,7 @@
         <% @active_listings.each do |listing| %>
           <div class="col">
             <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-              <% if listing.photo.attached? %>
-                <%= cl_image_tag listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-              <% end %>
+                <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
               <div class="card-body d-flex flex-column p-4">
                 <h4 class="card-title text-truncate mb-2 text-dark">
                   <strong><%= listing.title %></strong>
@@ -60,9 +58,7 @@
                 <% @inactive_listings.each do |listing| %>
                   <div class="col">
                     <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                      <% if listing.photo.attached? %>
-                        <%= cl_image_tag listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                      <% end %>
+                        <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
                       <div class="card-body d-flex flex-column p-4">
                         <h4 class="card-title text-truncate mb-2 text-dark">
                           <strong><%= listing.title %></strong>
@@ -101,9 +97,7 @@
         <% @host_pending_bookings.each do |booking| %>
           <div class="col">
             <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-              <% if booking.listing.photo.attached? %>
-                <%= cl_image_tag booking.listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-              <% end %>
+                <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
               <div class="card-body d-flex flex-column p-4">
                 <h4 class="card-title text-truncate mb-2 text-dark">
                   <strong><%= booking.listing.title %></strong>
@@ -140,9 +134,7 @@
         <% @host_accepted_bookings.each do |booking| %>
           <div class="col">
             <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-              <% if booking.listing.photo.attached? %>
-                <%= cl_image_tag booking.listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-              <% end %>
+                <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
               <div class="card-body d-flex flex-column p-4">
                 <h4 class="card-title text-truncate mb-2 text-dark">
                   <strong><%= booking.listing.title %></strong>
@@ -183,9 +175,7 @@
                 <% @guest_rejected_bookings.each do |booking| %>
                   <div class="col">
                     <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                      <% if booking.listing.photo.attached? %>
-                        <%= cl_image_tag booking.listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                      <% end %>
+                        <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
                       <div class="card-body d-flex flex-column p-4">
                         <h4 class="card-title text-truncate mb-2 text-dark">
                           <strong><%= booking.listing.title %></strong>
@@ -221,9 +211,7 @@
         <% @guest_pending_bookings.each do |booking| %>
           <div class="col">
             <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-              <% if booking.listing.photo.attached? %>
-                <%= cl_image_tag booking.listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-              <% end %>
+                <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
               <div class="card-body d-flex flex-column p-4">
                 <h4 class="card-title text-truncate mb-2 text-dark">
                   <strong><%= booking.listing.title %></strong>
@@ -257,9 +245,7 @@
         <% @guest_accepted_bookings.each do |booking| %>
           <div class="col">
             <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-              <% if booking.listing.photo.attached? %>
-                <%= cl_image_tag booking.listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-              <% end %>
+                <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
               <div class="card-body d-flex flex-column p-4">
                 <h4 class="card-title text-truncate mb-2 text-dark">
                   <strong><%= booking.listing.title %></strong>
@@ -300,9 +286,7 @@
                 <% @guest_rejected_bookings.each do |booking| %>
                   <div class="col">
                     <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                      <% if booking.listing.photo.attached? %>
-                        <%= cl_image_tag booking.listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                      <% end %>
+                        <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
                       <div class="card-body d-flex flex-column p-4">
                         <h4 class="card-title text-truncate mb-2 text-dark">
                           <strong><%= booking.listing.title %></strong>
