@@ -43,12 +43,12 @@ class BookingsController < ApplicationController
 
   def accept
     @booking.update(accepted: true)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   def reject
     @booking.update(accepted: false)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   private

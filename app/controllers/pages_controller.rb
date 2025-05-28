@@ -12,5 +12,7 @@ class PagesController < ApplicationController
     @host_pending_bookings = Booking.where(listing: @active_listings, accepted: nil) # Fetch pending bookings for active listings where the current user is the host
     @host_accepted_bookings = Booking.where(listing: @active_listings, accepted: true) # Fetch accepted bookings for active listings where the current user is the host
     @host_rejected_bookings = Booking.where(listing: @active_listings, accepted: false) # Fetch rejected bookings for active listings where the current user is the host
+
+    @active_tab = params[:tab] || 'guest'
   end
 end

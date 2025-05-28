@@ -44,12 +44,12 @@ class ListingsController < ApplicationController
 
   def activate
     @listing.update(active: true)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   def deactivate
     @listing.update(active: false)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   private
