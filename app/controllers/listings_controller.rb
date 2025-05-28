@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :activate, :deactivate]
 
   def index
-    @listings = Listing.all
+    @listings = Listing.where.not(user: current_user)
   end
 
   def show

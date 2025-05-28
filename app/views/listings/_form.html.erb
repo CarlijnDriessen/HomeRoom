@@ -4,5 +4,7 @@
   <%= f.input :price %>
   <%= f.input :category %>
   <%= f.input :photo, as: :file %>
-<%= f.submit %>
+  <div class="text-center mt-3">
+    <%= f.submit "Save Listing", class: "btn btn-outline-primary btn-sm rounded-pill px-4 py-2 aesthetic-btn" %>
+  </div>
 <% end %>
