@@ -38,7 +38,7 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking.destroy
-    redirect_to bookings_path, notice: 'Booking was successfully deleted.'
+    redirect_to dashboard_path(tab: params[:tab]), notice: 'Booking was successfully deleted.'
   end
 
   def accept
