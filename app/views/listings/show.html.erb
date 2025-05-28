@@ -19,31 +19,29 @@
     </div>
   </div>
 
-<div class="container">
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-md-8">
-      <h2 class="fw-bold mb-4">Description</h2>
       <p><%= @listing.description %></p>
     </div>
     <div class="col-md-4">
-      <h2 class="fw-bold mb-4">Details</h2>
       <ul class="list-unstyled">
         <li><strong>Location:</strong> <%= @listing.user.address %></li>
-        <li><strong>Posted by:</strong> <%= @listing.user.email %></li>
+        <li><strong>Posted by:</strong> <%= @listing.user.first_name %></li>
         <li><strong>Category:</strong> <%= @listing.category %></li>
-        <li><strong>Price: </strong><%= number_to_currency(@listing.price) %></li>
+        <li><strong>Price: </strong><%= number_to_currency(@listing.price, unit: "€", format: "%n%u") %></li>
       </ul>
       <%= link_to "Back to listings", listings_path, class: "btn btn-secondary" %>
+      <% if @listing.user == current_user %>
+        <div class="mt-2">
+          <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary me-2" %>
+          <%= link_to "Delete", listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        </div>
+      <% end %>
     </div>
   </div>
 
-  <% if @listing.user == current_user %>
-  <p>
-    <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary" %>
-    <%= link_to "Delete", listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-  </p>
-  <% end %>
-  
-<br>
-<h1>Make a booking</h1>
-<%= render "shared/booking_form" %>
+  <hr class="my-4">
+
+  <h3>Make a booking</h3>
+  <%= render "shared/booking_form" %>
+</div>
