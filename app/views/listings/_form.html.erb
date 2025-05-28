@@ -3,6 +3,6 @@
   <%= f.input :description %>
   <%= f.input :price %>
   <%= f.input :category %>
-  <%= f.input :photo, as: :file %>
-<%= f.submit %>
+  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+  <%= f.submit %>
 <% end %>
