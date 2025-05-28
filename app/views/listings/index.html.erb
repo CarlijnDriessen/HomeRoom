@@ -3,29 +3,18 @@
     <% @listings.each do |listing| %>
       <div class="col">
         <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-          <div class="card-body d-flex flex-column p-4">
-          <% if !listing.photos.empty? %>
+          <% if listing.photos.any? %>
             <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
           <% end %>
-            <p class="card-title text-truncate mb-2 text-dark"><strong><%= listing.title %></strong></h4>
-            <p class="card-text text-muted small flex-grow-1 mb-3"><strong>Category:</strong> <%= listing.category %></p>
+          <div class="card-body d-flex flex-column p-4">
+            <h5 class="card-title text-truncate mb-2 text-dark"><strong><%= listing.title %></strong></h5>
+            <p class="card-text text-muted small flex-grow-1 mb-3">
+              <strong>Category:</strong> <%= listing.category %>
+            </p>
             <p class="card-text fw-bold mb-1 fs-5">
               <span class="text-dark">Price</span>
               <span style="color: #00B4CC;">
-                <%= number_to_currency(listing.price, unit: "€", format: "%n%u") %>
-            </p>
-          </div>
-          <div class="card-footer d-flex justify-content-between align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
-            <%= link_to "Show", listing_path(listing), class: "btn btn-outline-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn" %>
-            <% if listing.user == current_user %>
-              <span class="d-flex align-items-center">
-                <%= link_to "Edit", edit_listing_path(listing), class: "btn btn-outline-secondary btn-sm me-2 rounded-pill px-3 py-2 aesthetic-btn" %>
-                <%= link_to listing_path(listing),
-                            data: { turbo_method: :delete, turbo_confirm: "Are-you sure?" },
-                            class: "btn btn-outline-warning btn-sm rounded-circle d-flex align-items-center justify-content-center aesthetic-icon-btn" do %>
-                  <i class="fa-regular fa-trash-can"></i>
-                <% end %>
-            <% end %>
+                <%= number_to_currency(listing.price, unit: "€") %>
               </span>
             </p>
           </div>
