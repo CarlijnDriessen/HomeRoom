@@ -7,10 +7,9 @@
 
 .accordion {
 	--bs-accordion-btn-color: black;
-	--bs-accordion-btn-bg: white;
 	--bs-accordion-active-color: black;
-	--bs-accordion-active-bg: white;
-  --bs-accordion-border: none
+  --bs-accordion-border-color: transparent;
+  --bs-accordion-bg: transparent;
 }
 
 /* Remove default Bootstrap accordion arrow */
