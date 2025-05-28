@@ -7,4 +7,6 @@ class Listing < ApplicationRecord
   validates :photos, length: { maximum: 5, message: "You can attach a maximum of 5 photos" }
   validates :title, :category, :description, :price, presence: true
   validates :description, length: { minimum: 120, too_short: "%{count} characters is the minimum required" }
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 end
