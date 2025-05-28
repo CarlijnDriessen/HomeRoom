@@ -2,17 +2,21 @@
   <h2 class="fw-bold mb-4"><%= @listing.title %></h2>
   <div class="row g-3">
     <!-- Main large image -->
-    <div class="col-md-8">
+    <div class="col-md-7">
       <img src="https://www.cibdol.nl/modules/psblog/uploads/1699013093.jpg" class="img-fluid rounded shadow" alt="Main studio image">
     </div>
     <!-- Thumbnail images as a grid -->
-    <div class="col-md-4">
+    <div class="col-md-5">
       <div class="row row-cols-2 g-2">
         <div class="col">
-          <img src="https://thriveyoga.nl/wp-content/uploads/2021/05/Pilates-8-768x512.jpg" class="img-fluid rounded shadow" alt="View 1">
+          <div style="aspect-ratio: 4/3; overflow: hidden;">
+            <img src="https://thriveyoga.nl/wp-content/uploads/2021/05/Pilates-8-768x512.jpg" class="img-fluid rounded shadow h-100 w-100 object-fit-cover" alt="View 1" style="object-fit: cover;">
+          </div>
         </div>
         <div class="col">
-          <img src="https://s10.s3c.es/imag/_v0/1254x684/d/9/6/yoga-poses-esenciales.jpg" class="img-fluid rounded shadow" alt="View 2">
+          <div style="aspect-ratio: 4/3; overflow: hidden;">
+            <img src="https://s10.s3c.es/imag/_v0/1254x684/d/9/6/yoga-poses-esenciales.jpg" class="img-fluid rounded shadow h-100 w-100 object-fit-cover" alt="View 2" style="object-fit: cover;">
+          </div>
         </div>
         <!-- Add more thumbnails here if needed -->
       </div>
@@ -30,7 +34,7 @@
         <li><strong>Category:</strong> <%= @listing.category %></li>
         <li><strong>Price: </strong><%= number_to_currency(@listing.price, unit: "€", format: "%n%u") %></li>
       </ul>
-      <%= link_to "Back to listings", listings_path, class: "btn btn-secondary" %>
+      <%= link_to "Back to listings", listings_path, class: "btn btn-secondary rounded-pill" %>
       <% if @listing.user == current_user %>
         <div class="mt-2">
           <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary me-2" %>
