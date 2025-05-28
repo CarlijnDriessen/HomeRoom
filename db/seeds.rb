@@ -128,15 +128,29 @@ listings_data = [
   }
 ]
 
+address = [
+  'Damrak 1-5, 1012 LG Amsterdam',
+  'Prinsengracht 263-267, 1016 GV Amsterdam',
+  'Leidsekruisstraat 35, 1017 RG Amsterdam',
+  'Museumplein 6, 1071 DJ Amsterdam',
+  'Westerstraat 120, 1015 MP Amsterdam',
+  'Utrechtsestraat 141, 1017 VM Amsterdam',
+  'Oostelijke Handelskade 4, 1019 BM Amsterdam',
+  'Ceintuurbaan 282-284, 1072 GK Amsterdam',
+  'Spuistraat 210, 1012 VT Amsterdam',
+  'Jan Evertsenstraat 136, 1056 EK Amsterdam'
+]
 
-listings_data.each do |listing_data|
+
+listings_data.each_with_index do |listing_data, index|
   listing = Listing.new(
     title: listing_data[:title],
     category: listing_data[:category],
     description: listing_data[:description],
     price: listing_data[:price],
     active: true,
-    user: created_users.sample
+    user: created_users.sample,
+    address: address[index]
   )
 
   listing_data[:images].each_with_index do |image_url, index|
@@ -145,6 +159,7 @@ listings_data.each do |listing_data|
   end
 
   listing.save!
+  puts "Created listing: #{listing.title}"
 end
 
 

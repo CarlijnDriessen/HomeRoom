@@ -3,9 +3,6 @@
     <% @listings.each do |listing| %>
       <div class="col">
         <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-          <% if listing.photo.attached? %>
-            <%= cl_image_tag listing.photo.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-          <% end %>
           <div class="card-body d-flex flex-column p-4">
           <% if !listing.photos.empty? %>
             <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
