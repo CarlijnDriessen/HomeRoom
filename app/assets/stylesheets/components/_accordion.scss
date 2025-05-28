@@ -1,8 +1,16 @@
 /* Remove Bootstrap's default background, border, and shadow */
-.accordion-header {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+// .accordion-header {
+//   background: transparent !important;
+//   border: none !important;
+//   box-shadow: none !important;
+// }
+
+.accordion {
+	--bs-accordion-btn-color: black;
+	--bs-accordion-btn-bg: white;
+	--bs-accordion-active-color: black;
+	--bs-accordion-active-bg: white;
+  --bs-accordion-border: none
 }
 
 /* Remove default Bootstrap accordion arrow */
