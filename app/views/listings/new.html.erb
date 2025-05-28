@@ -1,3 +1,11 @@
-<h4>Add a listing</h4>
-<%= render "form", listing: @listing %>
-<%= link_to "Back to listings", listings_path, class: "btn btn-secondary" %>
+<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card bg-white rounded-4 shadow-sm border-0 p-4" style="width: 100%; max-width: 600px;">
+    <h4 class="mb-4 text-center">Add a Listing</h4>
+
+    <%= render "form", listing: @listing %>
+
+    <div class="text-center mt-3">
+      <%= link_to "Back to listings", listings_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>

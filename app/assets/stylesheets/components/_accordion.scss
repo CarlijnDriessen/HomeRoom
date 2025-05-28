@@ -1,0 +1,35 @@
+/* Remove Bootstrap's default background, border, and shadow */
+// .accordion-header {
+//   background: transparent !important;
+//   border: none !important;
+//   box-shadow: none !important;
+// }
+
+.accordion {
+	--bs-accordion-btn-color: black;
+	--bs-accordion-active-color: black;
+  --bs-accordion-border-color: transparent;
+}
+
+/* Remove default Bootstrap accordion arrow */
+.accordion-button::after {
+  display: none !important;
+}
+
+/* Custom chevron styling */
+.chevron {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+
+/* Rotate chevron when accordion is open */
+.accordion-button[aria-expanded="true"] .chevron {
+  transform: rotate(-135deg);
+}
