@@ -30,7 +30,7 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
-      redirect_to bookings_path, notice: 'Booking was successfully updated.'
+      redirect_to dashboard_path(tab: params[:tab]), notice: 'Booking was successfully updated.'
     else
       render :edit, alert: 'Error updating booking.'
     end
@@ -43,12 +43,12 @@ class BookingsController < ApplicationController
 
   def accept
     @booking.update(accepted: true)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   def reject
     @booking.update(accepted: false)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   private

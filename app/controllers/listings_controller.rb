@@ -27,11 +27,12 @@ class ListingsController < ApplicationController
 
   def create
     @listing = Listing.new(listing_params)
+    @listing.user = current_user
     if @listing.save
       redirect_to listing_path(@listing)
     else
       @listings = Listing.all
-      render "listings/index", status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -51,12 +52,12 @@ class ListingsController < ApplicationController
 
   def activate
     @listing.update(active: true)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   def deactivate
     @listing.update(active: false)
-    redirect_to dashboard_path
+    redirect_to dashboard_path(tab: params[:tab])
   end
 
   private
@@ -66,7 +67,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title, :category, :description, :price)
+    params.require(:listing).permit(:title, :category, :description, :price, photos: [])
     # not including active for creating new, assume it's active as default.
   end
 
