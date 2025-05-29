@@ -42,14 +42,21 @@ class BookingsController < ApplicationController
   end
 
   def accept
-    @booking.update(accepted: true)
-    redirect_to dashboard_path(tab: params[:tab])
+    if @booking.update(accepted: true, host_response: params[:host_response])
+      redirect_to dashboard_path(tab: params[:tab]), notice: 'Booking accepted with given message.'
+    else
+      redirect_to dashboard_path(tab: params[:tab]), alert: 'Error accepting booking.'
+    end
   end
 
   def reject
-    @booking.update(accepted: false)
-    redirect_to dashboard_path(tab: params[:tab])
+    if @booking.update(accepted: false, host_response: params[:host_response])
+      redirect_to dashboard_path(tab: params[:tab]), notice: 'Booking rejected with message.'
+    else
+      redirect_to dashboard_path(tab: params[:tab]), alert: 'Error rejecting booking.'
+    end
   end
+
 
   private
 
@@ -58,7 +65,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:comment, :booking_date)
+    params.require(:booking).permit(:comment, :booking_date, :host_reponse)
   end
 
 end
