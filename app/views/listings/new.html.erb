@@ -1,11 +1,6 @@
 <div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-  <div class="card bg-white rounded-4 shadow-sm border-0 p-4" style="width: 100%; max-width: 600px;">
+  <div class="card bg-white rounded-4 shadow-lg border-0 p-4" style="width: 100%; max-width: 600px; box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 1.5px 6px rgba(0,0,0,0.15);">
     <h4 class="mb-4 text-center">Add a Listing</h4>
-
-    <%= render "form", listing: @listing %>
-
-    <div class="text-center mt-3">
-      <%= link_to "Back to listings", listings_path, class: "btn btn-secondary rounded-pill" %>
-    </div>
+    <%= render "form", listing: @listing, input_bg: "bg-white" %>
   </div>
 </div>

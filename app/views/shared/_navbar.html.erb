@@ -21,9 +21,9 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <%# <li class="nav-item active">
-            <%= link_to "Add a listing", new_listing_path, class: "white-blue-button" 
+            <%= link_to "Add a listing", new_listing_path, class: "white-blue-button"
           </li> %>
-          <p class="navbar-name">Hi, <%= current_user.first_name %>!</p>
+          <p class="navbar-name"><strong>Hi, <%= current_user.first_name %>!</strong></p>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <% if current_user.photo.attached? %>

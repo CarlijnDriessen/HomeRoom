@@ -1,11 +1,12 @@
   .listing-card-aesthetic {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); // <-- increased base shadow
   }
 
   .listing-card-aesthetic:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-7px) scale(1.01);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18); // <-- increased shadow on hover
   }
 
   .aesthetic-img {
