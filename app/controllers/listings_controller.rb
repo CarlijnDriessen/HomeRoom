@@ -3,8 +3,15 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :activate, :deactivate]
 
   def index
-    @listings = Listing.where.not(user: current_user)
+    if params[:query].present?
+      @listings = Listing
+        .where.not(user: current_user)
+        .where("title ILIKE :query OR description ILIKE :query OR category ILIKE :query", query: "%#{params[:query]}%")
+    else
+      @listings = Listing.where.not(user: current_user)
+    end
   end
+
 
   def show
     @booking = Booking.new
