@@ -1,7 +1,12 @@
-<%= simple_form_for @booking do |t| %>
-<%= t.input :comment %>
-<%= t.input :booking_date,
-            as: :string,
-            input_html: { data: { controller: "datepicker" } } %>
-<%= t.submit %>
-<% end %>
+<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card bg-white rounded-4 shadow-sm border-0 p-4" style="width: 100%; max-width: 600px;">
+    <h4 class="mb-4 text-center">Edit your Booking</h4>
+    <%= simple_form_for @booking do |t| %>
+      <%= t.input :comment %>
+      <%= t.input :booking_date,
+                  as: :string,
+                  input_html: { data: { controller: "datepicker" } } %>
+      <%= t.submit %>
+    <% end %>
+  </div>
+</div>

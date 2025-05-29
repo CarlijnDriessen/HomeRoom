@@ -48,13 +48,14 @@
         <li><strong>Category:</strong> <%= @listing.category %></li>
         <li><strong>Price:</strong> <%= number_to_currency(@listing.price, unit: "€", format: "%n%u") %></li>
       </ul>
-      <% if @listing.user == current_user %>
-        <div class="mt-2">
-          <%= link_to "Edit", edit_listing_path(@listing), class: "btn btn-secondary me-2" %>
-          <%= link_to "Delete", listing_path(@listing), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this booking?"}, class: "btn btn-danger" %>
-        </div>
-      <% end %>
+      <%= link_to "Back to listings", listings_path, class: "btn btn-secondary rounded-pill" %>
     </div>
+  </div>
+
+  <div style="width: 100%; height: 400px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
 
   <!-- Third Row: Map -->
