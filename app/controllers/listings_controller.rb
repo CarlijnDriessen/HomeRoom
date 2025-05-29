@@ -66,7 +66,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title, :category, :description, :price, photos: [])
+    params.require(:listing).permit(:title, :category, :description, :price, :address, photos: [])
     # not including active for creating new, assume it's active as default.
   end
 

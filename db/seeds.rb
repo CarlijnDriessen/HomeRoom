@@ -162,5 +162,4 @@ listings_data.each_with_index do |listing_data, index|
   puts "Created listing: #{listing.title}"
 end
 
-
 puts "4 users and 10 listings created and linked!"
