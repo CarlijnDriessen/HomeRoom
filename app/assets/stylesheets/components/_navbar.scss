@@ -40,19 +40,27 @@
     box-shadow: 0 10px 20px rgba(0, 180, 204, 0.3);
   }
 
-  .search-term {
-    flex: 1;
-    border: none;
-    padding: 12px 15px;
-    border-radius: 50px;
-    font-size: 16px;
-    outline: none;
-    color: $black-gray;
+.search-term {
+  flex: 1;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 50px;
+  font-size: 16px;
+  outline: none;
+  color: $black-gray;
+  background-color: transparent;
 
-    &::placeholder {
-      color: #aaa;
-    }
+  &::placeholder {
+    color: #aaa;
   }
+
+  &:focus {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
 
   .search-button {
     background: none;

@@ -3,26 +3,26 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "logo_homeroom.png", style: "height: 48px; width: auto;" %>
     <% end %>
+
     <div class="wrap">
-      <div class="search">
-        <input type="text" class="search-term" placeholder="Search something...">
+      <%= form_with url: listings_path, method: :get, local: true, class: "search" do |form| %>
+        <%= form.text_field :query, placeholder: "Search something...", class: "search-term" %>
         <button type="submit" class="search-button" aria-label="search">
           <i class="fa fa-search"></i>
         </button>
-      </div>
+      <% end %>
     </div>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item active">
             <%= link_to "Add a listing", new_listing_path, class: "white-blue-button" %>
           </li>
-          <%# <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
-          <%# </li> %>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <% if current_user.photo.attached? %>
@@ -35,8 +35,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "My dashboard", dashboard_path, class: "dropdown-item" %>
-              <%# <%= link_to "Messages", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+              <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
