@@ -16,7 +16,7 @@ users.each do |user_data|
   # Extract the image filename
   image_filename = user_data.delete(:image_filename)
   # Create the user
-  user = User.create!(user_data)
+  user = User.new(user_data)
   # Attach profile picture
   file_path = Rails.root.join("app/assets/images/#{image_filename}")
   if File.exist?(file_path)
@@ -25,6 +25,8 @@ users.each do |user_data|
   else
     puts "Warning: Could not find image #{image_filename} for #{user.first_name}"
   end
+  user.save!
+  puts "Created user: #{user.first_name} #{user.last_name}"
   created_users << user
 end
 
