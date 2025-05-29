@@ -1,7 +1,12 @@
 <%= simple_form_for [@listing, @booking] do |t| %>
-<%= t.input :comment %>
-<%= t.input :booking_date,
-            as: :string,
-            input_html: { data: { controller: "datepicker" } } %>
-<%= t.submit %>
+  <%= t.input :comment, input_html: { class: "bg-white" } %>
+
+  <%= t.input :booking_date,
+              as: :string,
+              input_html: {
+                class: "bg-white",
+                data: { controller: "datepicker" }
+              } %>
+
+  <%= t.submit "Book Now", class: "btn btn-primary mt-3" %>
 <% end %>

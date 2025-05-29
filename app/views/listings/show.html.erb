@@ -1,25 +1,21 @@
 <div class="container py-4">
   <h2 class="fw-bold mb-4"><%= @listing.title %></h2>
+
+  <!-- First Row: Carousel (9 columns) + Listing Info (3 columns) -->
   <div class="row g-3">
-    <!-- Main image carousel -->
-    <div class="col-12">
+    <div class="col-md-9">
       <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <% @listing.photos.each_with_index do |photo, index| %>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="<%= index %>"
+              class="<%= 'active' if index == 0 %>" aria-current="<%= 'true' if index == 0 %>" aria-label="Slide <%= index + 1 %>"></button>
+          <% end %>
         </div>
         <div class="carousel-inner">
           <% @listing.photos.each_with_index do |photo, index| %>
-            <% if index == 0 %>
-              <div class="carousel-item active">
-                <%= cl_image_tag photo.key, class: "d-block w-100 h-50"%>
-              </div>
-            <% else %>
-              <div class="carousel-item">
-                <%= cl_image_tag photo.key, class: "d-block w-100" %>
-              </div>
-            <% end %>
+            <div class="carousel-item <%= 'active' if index == 0 %>">
+              <%= cl_image_tag photo.key, class: "d-block w-100" %>
+            </div>
           <% end %>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -31,19 +27,26 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-        </div>
     </div>
 
-  <div class="row mt-4">
-    <div class="col-sm-8 col-md-10">
-      <p><%= @listing.description %></p>
+    <!-- form -->
+    <div class="col-md-3">
+      <div class="card bg-white rounded-4 shadow-lg border-0 p-4" style="top: 100px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);">
+        <h5 class="card-title mb-3 text-dark"><strong>Make a booking</strong></h5>
+        <%= render "shared/booking_form" %>
+      </div>
     </div>
-    <div class="col-sm-4 col-md-2">
+  </div>
+
+  <!-- Second Row: Description -->
+  <div class="row mt-4">
+    <div class="col-md-9">
+      <p><%= @listing.description %></p>
       <ul class="list-unstyled">
         <li><strong>Location:</strong> <%= @listing.user.address %></li>
         <li><strong>Posted by:</strong> <%= @listing.user.first_name %></li>
         <li><strong>Category:</strong> <%= @listing.category %></li>
-        <li><strong>Price: </strong><%= number_to_currency(@listing.price, unit: "€", format: "%n%u") %></li>
+        <li><strong>Price:</strong> <%= number_to_currency(@listing.price, unit: "€", format: "%n%u") %></li>
       </ul>
       <%= link_to "Back to listings", listings_path, class: "btn btn-secondary rounded-pill" %>
     </div>
@@ -55,9 +58,16 @@
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
 
+  <!-- Third Row: Map -->
+  <div class="row mt-4">
+    <div class="col-md-9">
+      <div style="width: 100%; height: 400px;"
+        data-controller="map"
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+    </div>
+  </div>
 
   <hr class="my-4">
-
-  <h3>Make a booking</h3>
-  <%= render "shared/booking_form", class: "mb-5" %>
-  <br>
+</div>
