@@ -1,3 +1,48 @@
+<div id="videoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-wrap="true" style="position: relative;">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <video class="d-block w-100" autoplay loop muted playsinline class="video-background" style="object-fit: cover; object-position: center;">
+        <source src="https://videos.pexels.com/video-files/3517209/3517209-hd_1920_1080_25fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="gradient-overlay"></div>
+    </div>
+    <div class="carousel-item">
+      <video class="d-block w-100" autoplay loop muted playsinline class="video-background" style="object-fit: cover; object-position: center;">
+        <source src="https://videos.pexels.com/video-files/2927943/2927943-uhd_2732_1440_24fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="gradient-overlay"></div>
+    </div>
+    <div class="carousel-item">
+      <video class="d-block w-100" autoplay loop muted playsinline class="video-background" style="object-fit: cover; object-position: center;">
+        <source src="https://videos.pexels.com/video-files/28000737/12285819_1920_1080_24fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="gradient-overlay"></div>
+    </div>
+  </div>
+
+  <div class="custom-overlay-text">
+    <h1>Home Room</h1>
+    <p>Your space to <span id="changing-word">connect</span>.</p>
+  </div>
+  <script>
+    const words = ['connect', 'create', 'learn', 'grow', 'explore'];
+    let currentIndex = 0;
+    const wordSpan = document.getElementById('changing-word');
+
+    setInterval(() => {
+      wordSpan.classList.add('fade-out');
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % words.length;
+        wordSpan.textContent = words[currentIndex];
+        wordSpan.classList.remove('fade-out');
+      }, 500); // Sync with CSS transition duration
+    }, 3000); // Change every 2 seconds
+  </script>
+</div>
+
 <div class="container py-5 bg-white">
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
     <% if @listings.any? %>
