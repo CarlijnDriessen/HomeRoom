@@ -3,8 +3,15 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :activate, :deactivate]
 
   def index
-    @listings = Listing.where.not(user: current_user)
+    if params[:query].present?
+      @listings = Listing
+        .where.not(user: current_user)
+        .where("title ILIKE :query OR description ILIKE :query OR category ILIKE :query", query: "%#{params[:query]}%")
+    else
+      @listings = Listing.where.not(user: current_user)
+    end
   end
+
 
   def show
     @booking = Booking.new
@@ -16,7 +23,7 @@ class ListingsController < ApplicationController
         lng: @listing.longitude,
         info_window_html: render_to_string(partial: "info_window", locals: {listing: @listing}),
       }]
-    end
+  end
 
 
   def new
@@ -66,7 +73,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title, :category, :description, :price, photos: [])
+    params.require(:listing).permit(:title, :category, :description, :price, :address, photos: [])
     # not including active for creating new, assume it's active as default.
   end
 
