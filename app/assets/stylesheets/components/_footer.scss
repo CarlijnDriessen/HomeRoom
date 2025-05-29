@@ -1,80 +1,159 @@
-.footer {
+* {
+  box-sizing: border-box;
+}
+
+.footer-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  background-color: #fbfbfb;
-  text-align: center;
-  padding: 40px 0;
-  font-size: 14px;
-  color: #333;
-  margin-top: 60px;
-  border-top: 1px solid #eee;
+  z-index: 999;
+  font-family: inherit;
+
+  &:hover .footer-credit {
+    display: none;
+  }
+}
+
+// Mini footer ########################################
+.footer-mini {
+  background-color: $white;
+  border-top: 1px solid $light-gray;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  transition: height 0.4s ease;
+  cursor: pointer;
+
+  .footer-mini-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: $black-gray;
+
+    .mini-logo {
+      width: 26px;
+      height: auto;
+    }
+
+    .footer-credit {
+      font-size: 13px;
+      color: $black-gray;
+    }
+  }
+}
+
+// Expanded footer ###########################################
+.footer-expanded {
+  background-color: $white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  border-top: 1px solid $light-gray;
+}
+
+.footer-wrapper:hover .footer-expanded {
+  max-height: 350px;
+}
+
+.footer-wrapper:hover .footer-mini {
+  height: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .footer-container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  padding: 15px 25px;
 }
 
 .footer-top {
   display: flex;
   justify-content: space-between;
+  gap: 30px;
   flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.footer-logo img {
+  width: 65px;
+  height: auto;
+  margin: 50px;
+}
+
+.footer-columns {
+  display: flex;
   gap: 40px;
-  text-align: center;
+  flex: 2;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .footer-column {
+    flex: 1;
+    min-width: 140px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    text-align: left;
+
+    h4 {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: $blue-2;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 5px;
+
+        a {
+          position: relative;
+          text-decoration: none;
+          color: $black-gray;
+          font-size: 13px;
+          transition: color 0.3s ease;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0%;
+            height: 1px;
+            background-color: $blue-2;
+            transition: width 0.3s ease;
+          }
+
+          &:hover {
+            color: $blue-2;
+
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-.footer-logo span {
-  font-size: 20px;
-  font-weight: bold;
-  color: #00b4cc;
-}
-
-.footer-column {
-  flex: 1;
-  min-width: 160px;
-}
-
-.footer-column h4 {
-  font-weight: bold;
-  margin-bottom: 15px;
-  font-size: 15px;
-  color: #00b4cc;
-}
-
-.footer-column ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-column ul li {
-  margin-bottom: 10px;
-}
-
-.footer-column ul li a {
-  text-decoration: none;
-  color: #333;
-  transition: color 0.3s ease;
-}
-
-.footer-column ul li a:hover {
-  color: #00b4cc;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 10px;
-}
-
-footer.footer {
-  margin-top: auto;
+.footer-wrapper:hover .footer-column {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 hr {
   border: none;
   border-top: 1px solid $black-gray;
-  margin: 40px 0 20px;
+  margin: 16px 0;
 }
 
 .footer-bottom {
@@ -82,27 +161,30 @@ hr {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
 .footer-socials a {
-  font-size: 18px;
-  margin-right: 15px;
-  color: #00b4cc;
-  transition: color 0.3s;
-}
+  font-size: 16px;
+  margin-right: 10px;
+  color: $blue-2;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-.footer-socials a:hover {
-  color: #007c91;
+  &:hover {
+    color: $blue-2;
+  }
 }
 
 .footer-legal a {
-  color: #888;
-  margin-right: 15px;
-  font-size: 13px;
+  color: $medium-gray;
+  margin-right: 10px;
+  font-size: 12px;
   text-decoration: none;
-}
 
-.footer-legal a:hover {
-  color: #00b4cc;
+  &:hover {
+    color: $blue-2;
+  }
 }
