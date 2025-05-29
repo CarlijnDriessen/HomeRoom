@@ -69,5 +69,23 @@
     </div>
   </div>
 
+  <!-- Reviews -->
+  <h2>Reviews</h2>
+  <% if @listing.reviews.count > 0 %>
+    <% @listing.reviews.each do |review| %>
+      <% review.rating.times do %>
+        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+      <% end %>
+      <em class="time-ago"><%= time_ago_in_words(review.created_at) %> ago</em>
+      <p><%= review.comment %></p>
+      <!-- BELOW ONLY FOR TESTING!!! -->
+      <%= link_to "Delete", review_path(review),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+      <div class="border-bottom my-2 w-100"></div>
+    <% end %>
+    <% else %>
+      <%= "There are no reviews for this listing yet!" %>
+  <% end %>
+
   <hr class="my-4">
 </div>
