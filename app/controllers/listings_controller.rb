@@ -23,7 +23,7 @@ class ListingsController < ApplicationController
         lng: @listing.longitude,
         info_window_html: render_to_string(partial: "info_window", locals: {listing: @listing}),
       }]
-    end
+  end
 
 
   def new
