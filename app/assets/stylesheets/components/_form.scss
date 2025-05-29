@@ -14,3 +14,9 @@ form textarea:focus {
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(0, 180, 204, 0.25);
 }
+
+.white-input-form input.form-control,
+.white-input-form textarea.form-control,
+.white-input-form select.form-select {
+  background-color: #ffffff;
+}
