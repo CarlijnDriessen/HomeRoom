@@ -24,9 +24,15 @@
             <%= link_to "Messages", "#", class: "nav-link" %>
           <%# </li> %>
           <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-          </a>
+            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <% if current_user.photo.attached? %>
+                <%= cl_image_tag current_user.photo.key, class: "avatar", alt: "dropdown menu" %>
+              <% else %>
+                <div class="avatar-initials">
+                  <%= current_user.first_name[0].upcase %><%= current_user.last_name[0].upcase %>
+                </div>
+              <% end %>
+            </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "My dashboard", dashboard_path, class: "dropdown-item" %>
               <%# <%= link_to "Messages", "#", class: "dropdown-item" %>

@@ -6,13 +6,29 @@ puts "Destroyed all users"
 # Create users
 
 users = [
-  { first_name: 'Mrinal', last_name: 'Verma', email: 'mrinalverma1993@gmail.com', password: '123123', address: 'The Hague' },
-  { first_name: 'Thomas', last_name: 'Bruins', email: 'thomas.bruins12@gmail.com', password: '123123', address: 'Amsterdam' },
-  { first_name: 'Carlijn', last_name: 'Driessen', email: 'carlijndriessen.dev@gmail.com', password: '123123', address: 'Limburg' },
-  { first_name: 'Daniel', last_name: 'Suarez', email: 'ndanielmnv@gmail.com', password: '123123', address: 'Rotterdam' }
+  { first_name: 'Mrinal', last_name: 'Verma', email: 'mrinalverma1993@gmail.com', password: '123123', address: 'The Hague', image_filename: 'Mrinal.png' },
+  { first_name: 'Thomas', last_name: 'Bruins', email: 'thomas.bruins12@gmail.com', password: '123123', address: 'Amsterdam', image_filename: 'Tjomas.png' },
+  { first_name: 'Carlijn', last_name: 'Driessen', email: 'carlijndriessen.dev@gmail.com', password: '123123', address: 'Limburg', image_filename: 'Carlijn.png' },
+  { first_name: 'Daniel', last_name: 'Suarez', email: 'ndanielmnv@gmail.com', password: '123123', address: 'Rotterdam', image_filename: 'Daniel.png' }
 ]
+created_users = []
+users.each do |user_data|
+  # Extract the image filename
+  image_filename = user_data.delete(:image_filename)
+  # Create the user
+  user = User.create!(user_data)
+  # Attach profile picture
+  file_path = Rails.root.join("app/assets/images/#{image_filename}")
+  if File.exist?(file_path)
+    user.photo.attach(io: File.open(file_path), filename: image_filename, content_type: "image/png")
+    puts "Attached photo #{image_filename} to #{user.first_name}"
+  else
+    puts "Warning: Could not find image #{image_filename} for #{user.first_name}"
+  end
+  created_users << user
+end
 
-created_users = users.map { |user| User.create!(user) }
+puts "Created #{created_users.count} users with profile pictures."
 
 # Define listings
 listings_data = [
@@ -90,7 +106,7 @@ listings_data = [
     images: [
       'https://res.cloudinary.com/hz3gmuqw6/image/upload/c_fill,f_auto,q_60,w_750/v1/goldenapron/62321f5b3f382',
       'https://waterfrontparkseattle.org/wp-content/uploads/2022/07/2021-08-31_HL_DancingtilDusk_WebRes_AdamLu_HO3C1249-1440x960.jpg',
-      'https://obby.co.uk/blog/content/images/2021/10/c870x524.jpeg'
+      'https://images.squarespace-cdn.com/content/v1/53627a5fe4b0a3d8cb465600/5273c818-fc79-478e-b981-fb77e3285829/IMG_7013-Erika-Johnson.jpg'
     ]
   },
   {
