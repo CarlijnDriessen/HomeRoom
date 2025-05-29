@@ -7,6 +7,11 @@
   color: #333;
   margin-top: 60px;
   border-top: 1px solid #eee;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
 .footer-container {
@@ -20,22 +25,31 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 40px;
-  text-align: center;
+  text-align: left;
 }
 
-.footer-logo span {
-  font-size: 20px;
-  font-weight: bold;
-  color: #00b4cc;
+.footer-logo {
+  flex: 1 1 100%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.footer-logo img {
+  max-width: 150px;
+  transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover {
+  transform: scale(1.05);
 }
 
 .footer-column {
   flex: 1;
-  min-width: 160px;
+  min-width: 180px;
 }
 
 .footer-column h4 {
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 15px;
   font-size: 15px;
   color: #00b4cc;
@@ -64,16 +78,12 @@
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 10px;
-}
-
-footer.footer {
-  margin-top: auto;
+  gap: 8px;
 }
 
 hr {
   border: none;
-  border-top: 1px solid $black-gray;
+  border-top: 1px solid #ddd;
   margin: 40px 0 20px;
 }
 
@@ -89,11 +99,12 @@ hr {
   font-size: 18px;
   margin-right: 15px;
   color: #00b4cc;
-  transition: color 0.3s;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .footer-socials a:hover {
   color: #007c91;
+  transform: scale(1.2);
 }
 
 .footer-legal a {
@@ -101,6 +112,7 @@ hr {
   margin-right: 15px;
   font-size: 13px;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .footer-legal a:hover {
