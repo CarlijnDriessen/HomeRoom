@@ -21,7 +21,7 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <%# <li class="nav-item active">
-            <%= link_to "Add a listing", new_listing_path, class: "white-blue-button" 
+            <%= link_to "Add a listing", new_listing_path, class: "white-blue-button"
           </li> %>
           <p class="navbar-name">Hi, <%= current_user.first_name %>!</p>
           <li class="nav-item dropdown">
@@ -37,6 +37,7 @@
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "My dashboard", dashboard_path, class: "dropdown-item" %>
               <%= link_to "Add a listing", new_listing_path, class: "dropdown-item" %>
+              <%= link_to "Past bookings", past_bookings_path, class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             </div>
           </li>

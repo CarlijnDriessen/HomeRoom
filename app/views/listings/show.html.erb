@@ -64,5 +64,55 @@
         <%= render "shared/booking_form" %>
       </div>
     </div>
-  </div
+
+  <!-- Second Row: Description -->
+  <div class="row mt-4">
+    <div class="col-md-9">
+      <p><%= @listing.description %></p>
+      <ul class="list-unstyled">
+        <li><strong>Location:</strong> <%= @listing.user.address %></li>
+        <li><strong>Posted by:</strong> <%= @listing.user.first_name %></li>
+        <li><strong>Category:</strong> <%= @listing.category %></li>
+        <li><strong>Price:</strong> <%= number_to_currency(@listing.price, unit: "€", format: "%n%u") %></li>
+      </ul>
+      <%= link_to "Back to listings", listings_path, class: "btn btn-secondary rounded-pill" %>
+    </div>
+  </div>
+
+  <div style="width: 100%; height: 400px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
+
+  <!-- Third Row: Map -->
+  <div class="row mt-4">
+    <div class="col-md-9">
+      <div style="width: 100%; height: 400px;"
+        data-controller="map"
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <h2>Reviews</h2>
+  <% if @listing.reviews.count > 0 %>
+    <% @listing.reviews.each do |review| %>
+      <% review.rating.times do %>
+        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+      <% end %>
+      <em class="time-ago"><%= time_ago_in_words(review.created_at) %> ago</em>
+      <p><%= review.comment %></p>
+      <!-- BELOW ONLY FOR TESTING!!! -->
+      <%= link_to "Delete", review_path(review),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+      <div class="border-bottom my-2 w-100"></div>
+    <% end %>
+    <% else %>
+      <%= "There are no reviews for this listing yet!" %>
+  <% end %>
+
+  <hr class="my-4">
 </div>

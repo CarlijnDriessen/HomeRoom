@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reviews/create'
+  get 'reviews/destroy'
   devise_for :users
   root to: "listings#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -19,11 +21,15 @@ Rails.application.routes.draw do
 
   resources :listings do
     resources :bookings, only: [:new, :create]
+    resources :reviews, only: [:create]
     member do
       patch :activate
       patch :deactivate
     end
   end
 
+  resources :reviews, only: [:destroy]
+
   get "dashboard", to: "pages#dashboard", as: :dashboard
+  get "past_bookings", to: "pages#past_bookings", as: :past_bookings
 end
