@@ -1,6 +1,7 @@
 class Listing < ApplicationRecord
   belongs_to :user
   has_many :bookings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many_attached :photos
 
   validates :photos, presence: true, length: { minimum: 3, message: "You must attach atleast 3 photos" }

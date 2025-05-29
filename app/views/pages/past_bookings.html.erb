@@ -1,0 +1,64 @@
+<div class="my-3">
+  <h4>Past bookings</h4>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+  <% if @past_bookings.any? %>
+    <% @past_bookings.each do |booking| %>
+      <% listing = booking.listing %>
+      <% review = listing.reviews.new %>
+
+      <div class="col">
+        <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+          <%= link_to listing_path(listing), class: "text-decoration-none text-reset" do %>
+            <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+            <div class="card-body d-flex flex-column p-4">
+              <h4 class="card-title text-truncate mb-2 text-dark">
+                <strong><%= listing.title %></strong>
+              </h4>
+              <p class="card-text text-muted small flex-grow-1 mb-3">
+                <strong>Category:</strong> <%= listing.category %>
+              </p>
+              <p class="card-text fw-bold mb-1 fs-5">
+                <span class="text-dark">Price</span>
+                <span style="color: #00B4CC;">
+                  <%= number_to_currency(listing.price, unit: "€", format: "%u%n") %>
+                </span>
+              </p>
+            </div>
+          <% end %>
+          <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-<%= booking.id %>">
+              Add a review
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for this booking -->
+      <div class="modal fade" id="modal-<%= booking.id %>" tabindex="-1" aria-labelledby="modalLabel-<%= booking.id %>" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <%= simple_form_for [listing, review], html: { class: "mb-0" } do |f| %>
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel-<%= booking.id %>">Add a review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <%= f.input :comment %>
+                <%= f.input :rating, collection: [1,2,3,4,5], prompt: "Select a rating (1–5)" %>
+              </div>
+              <div class="modal-footer">
+                <%= f.submit "Submit", class: "btn btn-primary" %>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  <% else %>
+    <p>No past bookings!</p>
+  <% end %>
+</div>
