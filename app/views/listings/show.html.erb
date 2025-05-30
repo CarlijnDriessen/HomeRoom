@@ -46,25 +46,29 @@
         <!-- Listing Details -->
         <div class="mb-4">
           <h5 style="letter-spacing: 0.06em; line-height: 1.8;"><%= @listing.description %></h5>
+          <hr>
           <ul class="list-unstyled" style="padding-top: 12px;">
             <li class="mb-3">
               <i class="fa-solid fa-location-dot fa-lg me-2 text-muted"></i>
               <%= @listing.address %>
             </li>
             <li class="mb-3">
-              <i class="fa-solid fa-user fa-lg me-2 text-muted"></i>
-              <%= "#{@listing.user.first_name} #{@listing.user.last_name}" %>
-            </li>
-            <li class="mb-3">
-              <i class="fa-solid fa-layer-group fa-lg me-2 text-muted"></i>
-              <%= @listing.category %>
-            </li>
-            <li class="mb-3">
-              <i class="fa-solid fa-coins fa-lg me-2 text-muted"></i>
-              <%= number_to_currency(@listing.price, unit: "€") %>
+              <span class="me-4">
+                <i class="fa-solid fa-user fa-lg me-2 text-muted"></i>
+                <%= "#{@listing.user.first_name} #{@listing.user.last_name}" %>
+              </span>
+              <span class="me-4">
+                <i class="fa-solid fa-layer-group fa-lg me-2 text-muted"></i>
+                <%= @listing.category %>
+              </span>
+              <span>
+                <i class="fa-solid fa-coins fa-lg me-2 text-muted"></i>
+                <%= number_to_currency(@listing.price, unit: "€") %>
+              </span>
             </li>
           </ul>
         </div>
+
         
         <!-- Map -->
         <div class="mb-4">
