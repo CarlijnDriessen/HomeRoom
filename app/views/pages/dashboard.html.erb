@@ -1,472 +1,470 @@
 <div data-controller="toggle" data-toggle-initial-tab="<%= @active_tab %>">
-  <input type="checkbox" id="toggle" data-action="click->toggle#fire" class="toggleCheckbox mt-3 ml-5" />
-  <label for="toggle" class='toggleContainer'>
-    <div>Guest</div>
-    <div>Host</div>
-  </label>
-
-  <div class="container pb-5">
-    <!-- Host Tab -->
-    <div data-toggle-target="togglableElement" class="d-none">
-      <h4 class="mt-4">My listings</h4>
-      <div class="accordion my-3" id="accordionActiveListings">
-        <div class="accordion-item bg-transparent">
-          <h6 class="accordion-header">
-            <button class="accordion-button d-flex gap-2 bg-transparent my-2"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseActiveListings"
-                    aria-expanded="true"
-                    aria-controls="collapseActiveListings">
-              <span><em>Active listings</em></span>
-              <span class="chevron ms-2"></span>
-            </button>
-          </h6>
-          <div id="collapseActiveListings" class="accordion-collapse collapse show" data-bs-parent="#accordionActiveListings">
-            <div class="accordion-body">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <% if @active_listings.any? %>
-                  <% @active_listings.each do |listing| %>
-                    <div class="col">
-                      <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                          <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                        <div class="card-body d-flex flex-column p-4">
-                          <h4 class="card-title text-truncate mb-2 text-dark">
-                            <strong><%= listing.title %></strong>
-                          </h4>
-                          <p class="card-text text-muted small flex-grow-1 mb-3">
-                            <strong>Category:</strong> <%= listing.category %>
-                          </p>
-                          <p class="card-text fw-bold mb-1 fs-5">
-                            <span class="text-dark">Price</span>
-                            <span style="color: #00B4CC;">
-                              <%= number_to_currency(listing.price, unit: "€", format: "%n%u") %>
-                            </span>
-                          </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <!-- Host Tab -->
+        <div data-toggle-target="togglableElement" class="d-none">
+          <h4 class="mt-4">My listings</h4>
+          <div class="accordion my-3" id="accordionActiveListings">
+            <div class="accordion-item bg-transparent">
+              <h6 class="accordion-header">
+                <button class="accordion-button d-flex gap-2 bg-transparent my-2"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseActiveListings"
+                        aria-expanded="true"
+                        aria-controls="collapseActiveListings">
+                  <span><em>Active listings</em></span>
+                  <span class="chevron ms-2"></span>
+                </button>
+              </h6>
+              <div id="collapseActiveListings" class="accordion-collapse collapse show" data-bs-parent="#accordionActiveListings">
+                <div class="accordion-body">
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <% if @active_listings.any? %>
+                      <% @active_listings.each do |listing| %>
+                        <div class="col">
+                          <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                            <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                            <div class="card-body d-flex flex-column p-4">
+                              <h4 class="card-title text-truncate mb-2 text-dark">
+                                <strong><%= listing.title %></strong>
+                              </h4>
+                              <div class="d-flex justify-content-between align-items-center text-muted small flex-grow-1 mb-3">
+                                <span><strong>Category:</strong> <%= listing.category %></span>
+                                <span class="fw-bold" style="color: #00B4CC;">
+                                  <%= number_to_currency(listing.price, unit: "€") %>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+                              <%= link_to "Edit listing", edit_listing_path(listing), class: "btn btn-warning btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2 text-white" %>
+                              <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
+                                <%= hidden_field_tag :tab, 'host' %>
+                                <%= submit_tag "Set to active", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn" %>
+                              <% end %>
+                            </div>
+                          </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
-                          <%= link_to "Edit listing", edit_listing_path(listing), class: "btn btn-warning btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2 text-white" %>
-                          <%= form_with url: deactivate_listing_path(listing), method: :patch, local: true do %>
-                            <%= hidden_field_tag :tab, 'host' %>
-                            <%= submit_tag "Set to inactive", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn" %>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p>No listings yet!</p>
-                <% end %>
+                      <% end %>
+                    <% else %>
+                      <p>No listings yet!</p>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-
-      <div class="accordion" id="accordionInactive">
-        <div class="accordion-item bg-transparent">
-          <h4 class="accordion-header">
-            <button class="accordion-button d-flex gap-2 bg-transparent my-2"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne"
-                    aria-expanded="false"
-                    aria-controls="collapseOne">
-              <span><em>Show my inactive listings</em></span>
-              <span class="chevron ms-2"></span>
-            </button>
-          </h4>
-          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionInactive">
-            <div class="accordion-body">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <% if @inactive_listings.any? %>
-                  <% @inactive_listings.each do |listing| %>
-                    <div class="col">
-                      <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                          <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                        <div class="card-body d-flex flex-column p-4">
-                          <h4 class="card-title text-truncate mb-2 text-dark">
-                            <strong><%= listing.title %></strong>
-                          </h4>
-                          <p class="card-text text-muted small flex-grow-1 mb-3">
-                            <strong>Category:</strong> <%= listing.category %>
-                          </p>
-                          <p class="card-text fw-bold mb-1 fs-5">
-                            <span class="text-dark">Price</span>
-                            <span style="color: #00B4CC;">
-                              <%= number_to_currency(listing.price, unit: "€", format: "%n%u") %>
-                            </span>
-                          </p>
+          <div class="accordion" id="accordionInactive">
+            <div class="accordion-item bg-transparent">
+              <h4 class="accordion-header">
+                <button class="accordion-button d-flex gap-2 bg-transparent my-2"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="false"
+                        aria-controls="collapseOne">
+                  <span><em>Show my inactive listings</em></span>
+                  <span class="chevron ms-2"></span>
+                </button>
+              </h4>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionInactive">
+                <div class="accordion-body">
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <% if @inactive_listings.any? %>
+                      <% @inactive_listings.each do |listing| %>
+                        <div class="col">
+                          <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                            <%= cl_image_tag listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                            <div class="card-body d-flex flex-column p-4">
+                              <h4 class="card-title text-truncate mb-2 text-dark">
+                                <strong><%= listing.title %></strong>
+                              </h4>
+                              <div class="d-flex justify-content-between align-items-center text-muted small flex-grow-1 mb-3">
+                                <span><strong>Category:</strong> <%= listing.category %></span>
+                                <span class="fw-bold" style="color: #00B4CC;">
+                                  <%= number_to_currency(listing.price, unit: "€") %>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+                              <%= link_to "Edit listing", edit_listing_path(listing), class: "btn btn-warning btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2 text-white" %>
+                              <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
+                                <%= hidden_field_tag :tab, 'host' %>
+                                <%= submit_tag "Set to active", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn" %>
+                              <% end %>
+                            </div>
+                          </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
-                          <%= link_to "Edit listing", edit_listing_path(listing), class: "btn btn-warning btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2 text-white" %>
-                          <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
-                            <%= hidden_field_tag :tab, 'host' %>
-                            <%= submit_tag "Set to active", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn" %>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p>No inactive listings!</p>
-                <% end %>
+                      <% end %>
+                    <% else %>
+                      <p>No inactive listings!</p>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="border-bottom my-4"></div>
-      <h4 class="mt-4">My bookings</h4>
-      <div class="accordion my-3" id="accordionPendingHost">
-      <div class="accordion-item bg-transparent">
-        <h6 class="accordion-header">
-          <button class="accordion-button d-flex gap-2 bg-transparent my-2 collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapsePendingHost"
-                  aria-expanded="true"
-                  aria-controls="collapsePendingHost">
-            <span><em>Pending bookings</em></span>
-            <span class="chevron ms-2"></span>
-          </button>
-        </h6>
-
-        <div id="collapsePendingHost"
-            class="accordion-collapse collapse show"
-            aria-labelledby="headingPendingHost"
-            data-bs-parent="#accordionPendingHost">
-          <div class="accordion-body">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-              <% if @host_pending_bookings.any? %>
-                <% @host_pending_bookings.each do |booking| %>
-                  <div class="col">
-                    <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                      <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                      <div class="card-body d-flex flex-column p-4">
-                        <h4 class="text-truncate text-dark">
-                          <strong><%= booking.listing.title %></strong>
-                        </h4>
-                        <p class="card-text text-muted mb-1 px-1">
-                          <strong>Booking requested for:</strong> <%= booking.booking_date.strftime("%B #{booking.booking_date.day.ordinalize}, %Y") %>
-                        </p>
-                        <div class="text-muted small px-1">
-                          <p class="mb-1"><strong><%= booking.user.first_name %> <%= booking.user.last_name %></strong> sent you a message:</p>
-                          <p class="ps-2"><em>"<%= booking.comment %>"</em></p>
+          <div class="border-bottom my-4"></div>
+          <h4 class="mt-4">My bookings</h4>
+          <div class="accordion my-3" id="accordionPendingHost">
+            <div class="accordion-item bg-transparent">
+              <h6 class="accordion-header">
+                <button class="accordion-button d-flex gap-2 bg-transparent my-2 collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapsePendingHost"
+                        aria-expanded="true"
+                        aria-controls="collapsePendingHost">
+                  <span><em>Pending bookings</em></span>
+                  <span class="chevron ms-2"></span>
+                </button>
+              </h6>
+              <div id="collapsePendingHost"
+                   class="accordion-collapse collapse show"
+                   aria-labelledby="headingPendingHost"
+                   data-bs-parent="#accordionPendingHost">
+                <div class="accordion-body">
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <% if @host_pending_bookings.any? %>
+                      <% @host_pending_bookings.each do |booking| %>
+                        <div class="col">
+                          <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                            <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                            <div class="card-body d-flex flex-column p-4">
+                              <h4 class="text-truncate text-dark">
+                                <strong><%= booking.listing.title %></strong>
+                              </h4>
+                              <p class="card-text text-muted mb-1 px-1">
+                                <strong>Booking requested for:</strong> <%= booking.booking_date.strftime("%B #{booking.booking_date.day.ordinalize}, %Y") %>
+                              </p>
+                              <div class="text-muted small px-1">
+                                <p class="mb-1"><strong><%= booking.user.first_name %> <%= booking.user.last_name %></strong> sent you a message:</p>
+                                <p class="ps-2"><em>"<%= booking.comment %>"</em></p>
+                              </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+                              <button type="button"
+                                      class="btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#responseModal"
+                                      data-booking-id="<%= booking.id %>"
+                                      data-action-type="accept">
+                                Accept
+                              </button>
+                              <button type="button"
+                                      class="btn btn-danger btn-sm rounded-pill px-3 py-2 aesthetic-btn text-white"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#responseModal"
+                                      data-booking-id="<%= booking.id %>"
+                                      data-action-type="reject">
+                                Reject
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
-                        <button type="button"
-                                class="btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#responseModal"
-                                data-booking-id="<%= booking.id %>"
-                                data-action-type="accept">
-                          Accept
-                        </button>
-                        <button type="button"
-                                class="btn btn-danger btn-sm rounded-pill px-3 py-2 aesthetic-btn text-white"
-                                data-bs-toggle="modal"
-                                data-bs-target="#responseModal"
-                                data-booking-id="<%= booking.id %>"
-                                data-action-type="reject">
-                          Reject
-                        </button>
-                      </div>
+                      <% end %>
+                    <% else %>
+                      <p>No pending bookings!</p>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion my-3" id="accordionConfirmedHost">
+            <div class="accordion-item bg-transparent">
+              <h6 class="accordion-header">
+                <button class="accordion-button d-flex gap-2 bg-transparent my-2 collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseConfirmedHost"
+                        aria-expanded="false"
+                        aria-controls="collapseConfirmedHost">
+                  <span><em>Confirmed bookings</em></span>
+                  <span class="chevron ms-2"></span>
+                </button>
+              </h6>
+              <div id="collapseConfirmedHost"
+                   class="accordion-collapse collapse"
+                   aria-labelledby="headingConfirmedHost"
+                   data-bs-parent="#accordionConfirmedHost">
+                <div class="accordion-body">
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <% if @host_accepted_bookings.any? %>
+                      <% @host_accepted_bookings.each do |booking| %>
+                        <div class="col">
+                          <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                            <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                            <div class="card-body d-flex flex-column p-4">
+                              <h4 class="text-truncate text-dark">
+                                <strong><%= booking.listing.title %></strong>
+                              </h4>
+                              <p class="card-text text-muted mb-1 px-1">
+                                <strong>Booking confirmed for:</strong> <%= booking.booking_date.strftime("%B #{booking.booking_date.day.ordinalize}, %Y") %>
+                              </p>
+                              <div class="text-muted small px-1">
+                                <p class="mb-1"><strong><%= booking.user.first_name %> <%= booking.user.last_name %> </strong> sent you a message:</p>
+                                <p class="ps-2"><em>"<%= booking.comment %>"</em></p>
+                              </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <p>No confirmed bookings!</p>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion" id="accordionRejectedHost">
+            <div class="accordion-item bg-transparent">
+              <h4 class="accordion-header">
+                <button class="accordion-button d-flex gap-2 bg-transparent my-2"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseRejectedHost"
+                        aria-expanded="false"
+                        aria-controls="collapseRejectedHost">
+                  <span><em>Rejected bookings</em></span>
+                  <span class="chevron ms-2"></span>
+                </button>
+              </h4>
+              <div id="collapseRejectedHost" class="accordion-collapse collapse" aria-labelledby="headingRejectedHost" data-bs-parent="#accordionRejectedHost">
+                <div class="accordion-body">
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+                    <% if @host_rejected_bookings.any? %>
+                      <% @host_rejected_bookings.each do |booking| %>
+                        <div class="col">
+                          <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                            <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                            <div class="card-body d-flex flex-column p-4">
+                              <h4 class="text-truncate text-dark">
+                                <strong><%= booking.listing.title %></strong>
+                              </h4>
+                              <p class="card-text text-muted mb-1 px-1">
+                                <strong>Booking denied for:</strong> <%= booking.booking_date.strftime("%B #{booking.booking_date.day.ordinalize}, %Y") %>
+                              </p>
+                              <div class="text-muted small px-1">
+                                <p class="mb-1"><strong><%= booking.user.first_name %> <%= booking.user.last_name %> </strong> sent you a message:</p>
+                                <p class="ps-2"><em>"<%= booking.comment %>"</em></p>
+                              </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <p>No rejected bookings!</p>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div id="responseModal" class="modal" tabindex="-1" data-controller="modal" data-modal-target="container">
+            <div class="modal-dialog">
+              <%= form_with url: "", method: :patch, id: "responseForm", local: true do |form| %>
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="responseModalLabel">Leave a message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= hidden_field_tag :tab, 'host' %>
+                    <%= hidden_field_tag :booking_id, nil, id: "modal_booking_id" %>
+                    <%= hidden_field_tag :action_type, nil, id: "modal_action_type" %>
+                    <div class="mb-3">
+                      <%= label_tag :host_response, "Your message to the guest" %>
+                      <%= text_area_tag :host_response, nil, class: "form-control", required: true %>
                     </div>
                   </div>
-                <% end %>
-              <% else %>
-                <p>No pending bookings!</p>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <%= form.submit "Submit", class: "btn btn-primary" %>
+                  </div>
+                </div>
               <% end %>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-
-      <div class="accordion my-3" id="accordionConfirmedHost">
-        <div class="accordion-item bg-transparent">
-          <h6 class="accordion-header">
-            <button class="accordion-button d-flex gap-2 bg-transparent my-2 collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseConfirmedHost"
-                    aria-expanded="false"
-                    aria-controls="collapseConfirmedHost">
-              <span><em>Confirmed bookings</em></span>
-              <span class="chevron ms-2"></span>
-            </button>
-          </h6>
-
-          <div id="collapseConfirmedHost"
-              class="accordion-collapse collapse"
-              aria-labelledby="headingConfirmedHost"
-              data-bs-parent="#accordionConfirmedHost">
-            <div class="accordion-body">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <% if @host_accepted_bookings.any? %>
-                  <% @host_accepted_bookings.each do |booking| %>
-                    <div class="col">
-                      <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                        <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                        <div class="card-body d-flex flex-column p-4">
-                          <h4 class="text-truncate text-dark">
-                            <strong><%= booking.listing.title %></strong>
-                          </h4>
-                          <p class="card-text text-muted mb-1 px-1">
-                            <strong>Booking confirmed for:</strong> <%= booking.booking_date.strftime("%B #{booking.booking_date.day.ordinalize}, %Y") %>
-                          </p>
-                          <div class="text-muted small px-1">
-                            <p class="mb-1"><strong><%= booking.user.first_name %> <%= booking.user.last_name %> </strong> sent you a message:</p>
-                            <p class="ps-2"><em>"<%= booking.comment %>"</em></p>
-                          </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+        <!-- Guest Tab -->
+        <div data-toggle-target="togglableElement">
+          <div class="my-3">
+            <h4>Bookings</h4>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <% if @guest_pending_bookings.any? %>
+              <% @guest_pending_bookings.each do |booking| %>
+                <div class="col">
+                  <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                    <%= link_to listing_path(booking.listing), class: "text-decoration-none text-reset" do %>
+                      <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                      <div class="card-body d-flex flex-column p-4">
+                        <h4 class="card-title text-truncate mb-2 text-dark">
+                          <strong><%= booking.listing.title %></strong>
+                        </h4>
+                        <div class="d-flex justify-content-between align-items-center text-muted small flex-grow-1 mb-3">
+                          <span><strong>Category:</strong> <%= booking.listing.category %></span>
+                          <span class="fw-bold" style="color: #00B4CC;">
+                            <%= number_to_currency(booking.listing.price, unit: "€") %>
+                          </span>
                         </div>
                       </div>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p>No confirmed bookings!</p>
-                <% end %>
-              </div>
-            </div>
+                      <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
+                        <%= link_to "Edit", edit_booking_path(booking), class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2" %>
+                        <%= link_to booking_path(booking),
+                          data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger btn-sm rounded-pill px-3 py-2 aesthetic-btn text-white" do %>
+                          <i class="fa-regular fa-trash-can"></i>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            <% else %>
+              <p>No pending bookings!</p>
+            <% end %>
           </div>
-        </div>
-      </div>
-
-      <div class="accordion" id="accordionRejectedHost">
-        <div class="accordion-item bg-transparent">
-          <h4 class="accordion-header">
-            <button class="accordion-button d-flex gap-2 bg-transparent my-2"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseRejectedHost"
-                    aria-expanded="false"
-                    aria-controls="collapseRejectedHost">
-              <span><em>Rejected bookings</em></span>
-              <span class="chevron ms-2"></span>
-            </button>
-          </h4>
-          <div id="collapseRejectedHost" class="accordion-collapse collapse" aria-labelledby="headingRejectedHost" data-bs-parent="#accordionRejectedHost">
-            <div class="accordion-body">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
-                <% if @host_rejected_bookings.any? %>
-                  <% @host_rejected_bookings.each do |booking| %>
-                    <div class="col">
-                      <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                          <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                        <div class="card-body d-flex flex-column p-4">
-                          <h4 class="text-truncate text-dark">
-                            <strong><%= booking.listing.title %></strong>
-                          </h4>
-                          <p class="card-text text-muted mb-1 px-1">
-                            <strong>Booking denied for:</strong> <%= booking.booking_date.strftime("%B #{booking.booking_date.day.ordinalize}, %Y") %>
-                          </p>
-                          <div class="text-muted small px-1">
-                            <p class="mb-1"><strong><%= booking.user.first_name %> <%= booking.user.last_name %> </strong> sent you a message:</p>
-                            <p class="ps-2"><em>"<%= booking.comment %>"</em></p>
+          <!-- Confirmed Bookings Accordion -->
+          <div class="accordion my-3" id="accordionConfirmedGuest">
+            <div class="accordion-item bg-transparent">
+              <h6 class="accordion-header">
+                <button class="accordion-button d-flex gap-2 bg-transparent my-2"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseConfirmedGuest"
+                        aria-expanded="false"
+                        aria-controls="collapseConfirmedGuest">
+                  <span><em>Confirmed bookings</em></span>
+                  <span class="chevron ms-2"></span>
+                </button>
+              </h6>
+              <div id="collapseConfirmedGuest" class="accordion-collapse collapse" aria-labelledby="headingConfirmedGuest" data-bs-parent="#accordionConfirmedGuest">
+                <div class="accordion-body">
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <% if @guest_accepted_bookings.any? %>
+                      <% @guest_accepted_bookings.each do |booking| %>
+                        <div class="col">
+                          <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                            <%= link_to listing_path(booking.listing), class: "text-decoration-none text-reset" do %>
+                              <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                              <div class="card-body d-flex flex-column p-4">
+                                <h4 class="card-title text-truncate mb-2 text-dark">
+                                  <strong><%= booking.listing.title %></strong>
+                                </h4>
+                                <p class="card-text text-muted small flex-grow-1 mb-3">
+                                  <strong>Category:</strong> <%= booking.listing.category %>
+                                </p>
+                                <% if booking.host_response.present? %>
+                                  <hr class="my-2">
+                                  <p class="text-muted small px-1 mb-0"><strong>Host’s response:</strong></p>
+                                  <p class="ps-2"><em>"<%= booking.host_response %>"</em></p>
+                                <% end %>
+                                <p class="card-text fw-bold mb-1 fs-5">
+                                  <span class="text-dark">Price</span>
+                                  <span style="color: #00B4CC;">
+                                    <%= number_to_currency(booking.listing.price, unit: "€", format: "%n%u") %>
+                                  </span>
+                                </p>
+                              </div>
+                            <% end %>
                           </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p>No rejected bookings!</p>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal -->
-      <div id="responseModal" class="modal" tabindex="-1" data-controller="modal" data-modal-target="container">
-
-        <div class="modal-dialog">
-          <%= form_with url: "", method: :patch, id: "responseForm", local: true do |form| %>
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="responseModalLabel">Leave a message</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <%= hidden_field_tag :tab, 'host' %>
-                <%= hidden_field_tag :booking_id, nil, id: "modal_booking_id" %>
-                <%= hidden_field_tag :action_type, nil, id: "modal_action_type" %>
-                <div class="mb-3">
-                  <%= label_tag :host_response, "Your message to the guest" %>
-                  <%= text_area_tag :host_response, nil, class: "form-control", required: true %>
+                      <% end %>
+                    <% else %>
+                      <p>No confirmed bookings!</p>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <%= form.submit "Submit", class: "btn btn-primary" %>
-              </div>
             </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <!-- Guest Tab -->
-    <div data-toggle-target="togglableElement">
-      <div class="my-3">
-        <h4>Bookings</h4>
-      </div>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        <% if @guest_pending_bookings.any? %>
-          <% @guest_pending_bookings.each do |booking| %>
-            <div class="col">
-              <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                <%= link_to listing_path(booking.listing), class: "text-decoration-none text-reset" do %>
-                  <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                  <div class="card-body d-flex flex-column p-4">
-                    <h4 class="card-title text-truncate mb-2 text-dark">
-                      <strong><%= booking.listing.title %></strong>
-                    </h4>
-                    <p class="card-text text-muted small flex-grow-1 mb-3">
-                      <strong>Category:</strong> <%= booking.listing.category %>
-                    </p>
-                    <p class="card-text fw-bold mb-1 fs-5">
-                      <span class="text-dark">Price</span>
-                      <span style="color: #00B4CC;">
-                        <%= number_to_currency(booking.listing.price, unit: "€", format: "%u%n") %>
-                      </span>
-                    </p>
-                  </div>
-                  <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
-                    <%= link_to "Edit", edit_booking_path(booking), class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2" %>
-                    <%= link_to booking_path(booking),
-                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger btn-sm rounded-pill px-3 py-2 aesthetic-btn text-white" do %>
-                      <i class="fa-regular fa-trash-can"></i>
+          </div>
+          <!-- Rejected Bookings Accordion -->
+          <div class="accordion my-3" id="accordionRejectedGuest">
+            <div class="accordion-item bg-transparent">
+              <h6 class="accordion-header">
+                <button class="accordion-button d-flex gap-2 bg-transparent my-2 collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseRejectedGuest"
+                        aria-expanded="false"
+                        aria-controls="collapseRejectedGuest">
+                  <span><em>Rejected bookings</em></span>
+                  <span class="chevron ms-2"></span>
+                </button>
+              </h6>
+              <div id="collapseRejectedGuest" class="accordion-collapse collapse" aria-labelledby="headingRejectedGuest" data-bs-parent="#accordionRejectedGuest">
+                <div class="accordion-body">
+                  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <% if @guest_rejected_bookings.any? %>
+                      <% @guest_rejected_bookings.each do |booking| %>
+                        <div class="col">
+                          <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
+                            <%= link_to listing_path(booking.listing), class: "text-decoration-none text-reset" do %>
+                              <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
+                              <div class="card-body d-flex flex-column p-4">
+                                <h4 class="card-title text-truncate mb-2 text-dark">
+                                  <strong><%= booking.listing.title %></strong>
+                                </h4>
+                                <p class="card-text text-muted small flex-grow-1 mb-3">
+                                  <strong>Category:</strong> <%= booking.listing.category %>
+                                </p>
+                                <% if booking.host_response.present? %>
+                                  <hr class="my-2">
+                                  <p class="text-muted small px-1 mb-0"><strong>Host’s response:</strong></p>
+                                  <p class="ps-2"><em>"<%= booking.host_response %>"</em></p>
+                                <% end %>
+                                <p class="card-text fw-bold mb-1 fs-5">
+                                  <span class="text-dark">Price</span>
+                                  <span style="color: #00B4CC;">
+                                    <%= number_to_currency(booking.listing.price, unit: "€", format: "%n%u") %>
+                                  </span>
+                                </p>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <p>No rejected bookings!</p>
                     <% end %>
-                  <% end %>
                   </div>
-              </div>
-            </div>
-          <% end %>
-        <% else %>
-          <p>No pending bookings!</p>
-        <% end %>
-      </div>
-
-      <!-- Confirmed Bookings Accordion -->
-      <div class="accordion my-3" id="accordionConfirmedGuest">
-        <div class="accordion-item bg-transparent">
-          <h6 class="accordion-header">
-            <button class="accordion-button d-flex gap-2 bg-transparent my-2"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseConfirmedGuest"
-                    aria-expanded="false"
-                    aria-controls="collapseConfirmedGuest">
-              <span><em>Confirmed bookings</em></span>
-              <span class="chevron ms-2"></span>
-            </button>
-          </h6>
-          <div id="collapseConfirmedGuest" class="accordion-collapse collapse" aria-labelledby="headingConfirmedGuest" data-bs-parent="#accordionConfirmedGuest">
-            <div class="accordion-body">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <% if @guest_accepted_bookings.any? %>
-                  <% @guest_accepted_bookings.each do |booking| %>
-                    <div class="col">
-                      <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                        <%= link_to listing_path(booking.listing), class: "text-decoration-none text-reset" do %>
-                          <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                          <div class="card-body d-flex flex-column p-4">
-                            <h4 class="card-title text-truncate mb-2 text-dark">
-                              <strong><%= booking.listing.title %></strong>
-                            </h4>
-                            <p class="card-text text-muted small flex-grow-1 mb-3">
-                              <strong>Category:</strong> <%= booking.listing.category %>
-                            </p>
-
-                            <% if booking.host_response.present? %>
-                              <hr class="my-2">
-                              <p class="text-muted small px-1 mb-0"><strong>Host’s response:</strong></p>
-                              <p class="ps-2"><em>"<%= booking.host_response %>"</em></p>
-                            <% end %>
-
-                            <p class="card-text fw-bold mb-1 fs-5">
-                              <span class="text-dark">Price</span>
-                              <span style="color: #00B4CC;">
-                                <%= number_to_currency(booking.listing.price, unit: "€", format: "%n%u") %>
-                              </span>
-                            </p>
-                          </div>
-                        <% end %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p>No confirmed bookings!</p>
-                <% end %>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Rejected Bookings Accordion -->
-      <div class="accordion my-3" id="accordionRejectedGuest">
-        <div class="accordion-item bg-transparent">
-          <h6 class="accordion-header">
-            <button class="accordion-button d-flex gap-2 bg-transparent my-2 collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseRejectedGuest"
-                    aria-expanded="false"
-                    aria-controls="collapseRejectedGuest">
-              <span><em>Rejected bookings</em></span>
-              <span class="chevron ms-2"></span>
-            </button>
-          </h6>
-          <div id="collapseRejectedGuest" class="accordion-collapse collapse" aria-labelledby="headingRejectedGuest" data-bs-parent="#accordionRejectedGuest">
-            <div class="accordion-body">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <% if @guest_rejected_bookings.any? %>
-                  <% @guest_rejected_bookings.each do |booking| %>
-                    <div class="col">
-                      <div class="card h-100 bg-white rounded-4 shadow-sm border-0 listing-card-aesthetic">
-                        <%= link_to listing_path(booking.listing), class: "text-decoration-none text-reset" do %>
-                          <%= cl_image_tag booking.listing.photos.first.key, class: "card-img-top mb-3 rounded-3 aesthetic-img" %>
-                          <div class="card-body d-flex flex-column p-4">
-                            <h4 class="card-title text-truncate mb-2 text-dark">
-                              <strong><%= booking.listing.title %></strong>
-                            </h4>
-                            <p class="card-text text-muted small flex-grow-1 mb-3">
-                              <strong>Category:</strong> <%= booking.listing.category %>
-                            </p>
-
-                            <% if booking.host_response.present? %>
-                              <hr class="my-2">
-                              <p class="text-muted small px-1 mb-0"><strong>Host’s response:</strong></p>
-                              <p class="ps-2"><em>"<%= booking.host_response %>"</em></p>
-                            <% end %>
-
-                            <p class="card-text fw-bold mb-1 fs-5">
-                              <span class="text-dark">Price</span>
-                              <span style="color: #00B4CC;">
-                                <%= number_to_currency(booking.listing.price, unit: "€", format: "%n%u") %>
-                              </span>
-                            </p>
-                          </div>
-                        <% end %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <p>No rejected bookings!</p>
-                <% end %>
-              </div>
-            </div>
+      <div class="col-md-3">
+        <div class="card bg-white rounded-5 shadow-lg border-0 p-4"
+         style="position: sticky; top: 140px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);">
+          <div class="d-flex justify-content-center my-3">
+        <input type="checkbox" id="toggle" data-action="click->toggle#fire" class="toggleCheckbox" />
+        <label for="toggle" class='toggleContainer ms-2' style="font-size: 1.25rem;">
+          <div style="font-size: 1.1em; font-weight: 500;">Guest</div>
+          <div style="font-size: 1.1em; font-weight: 500;">Host</div>
+        </label>
           </div>
+            <div class="d-flex justify-content-center my-3">
+            <% if current_user.photo.attached? %>
+              <%= cl_image_tag current_user.photo.key, class: "rounded-circle shadow", width: 130, height: 130 %>
+            <% else %>
+              <%= image_tag "default_avatar.png", class: "rounded-circle shadow", width: 130, height: 130 %>
+            <% end %>
+            </div>
+          <h4 class="card-title mb-3 text-dark">
+          <div class="text-center">
+            <strong><%= current_user.first_name %></strong>
+            <p class="text-center" style="font-size: 0.5em;"><%= current_user.address %></p>
+          </div>
+          </h4>
         </div>
       </div>
     </div>
