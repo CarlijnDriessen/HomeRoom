@@ -19,12 +19,14 @@
       <%= link_to "Go back", listings_path, class: "btn btn-secondary rounded-pill px-4 py-2 aesthetic-btn", style: "font-size: 1rem;" %>
       <%= f.submit "Save Listing", class: "btn btn-primary rounded-pill px-4 py-2 aesthetic-btn mx-2", style: "background-color: #00B4CC; border-color: #00B4CC; font-size: 1rem;" %>
     </div>
-    <div class="position-absolute end-0">
-      <%= link_to listing_path(@listing),
-        data: { turbo_method: :delete },
-        class: "btn btn-danger btn-sm rounded-pill aesthetic-btn text-white" do %>
-        <i class="fa-regular fa-trash-can"></i>
-      <% end %>
-    </div>
+    <% if @listing.persisted? %>
+      <div class="position-absolute end-0">
+        <%= link_to listing_path(@listing),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          class: "btn btn-danger btn-sm rounded-pill aesthetic-btn text-white" do %>
+          <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>
