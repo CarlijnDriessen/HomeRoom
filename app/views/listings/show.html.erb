@@ -89,23 +89,30 @@
           <h2>Reviews</h2>
           <% if @listing.reviews.any? %>
             <% @listing.reviews.each do |review| %>
-              <div class="mb-3">
-                <% review.rating.times do %>
-                  <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+              <div class="mb-2">
+                <% 1.upto(5) do |i| %>
+                  <% if i <= review.rating %>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                  <% else %>
+                    <i class="fa-regular fa-star" style="color: #ccc;"></i>
+                  <% end %>
                 <% end %>
-                <em class="time-ago"><%= time_ago_in_words(review.created_at) %> ago</em>
-                <p><%= review.comment %></p>
-                <%= link_to "Delete", review_path(review),
-                    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
               </div>
+                <p>"<%= review.comment %>"</p>
+                <div class="d-flex justify-content-between">
+                  <em class="time-ago"> created <%= time_ago_in_words(review.created_at) %> ago</em>
+                  <%= link_to listing_path(@listing),
+                    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                    class: "btn btn-danger btn-sm rounded-pill aesthetic-btn text-white" do %>
+                    <i class="fa-regular fa-trash-can"></i>
+                  <% end %>
+                </div>
               <hr>
             <% end %>
           <% else %>
             <p>There are no reviews for this listing yet!</p>
           <% end %>
         </div>
-
-        <hr class="my-4">
       </div>
     </div>
 
@@ -117,5 +124,6 @@
         <%= render "shared/booking_form" %>
       </div>
     </div>
+
   </div>
 </div>
