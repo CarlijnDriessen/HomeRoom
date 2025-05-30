@@ -15,4 +15,10 @@ class PagesController < ApplicationController
 
     @active_tab = params[:tab] || 'guest'
   end
+
+  def past_bookings
+    @past_bookings = current_user.bookings.where("booking_date < ?", Date.today)
+    @review = Review.new
+    @listing = @review.listing
+  end
 end
