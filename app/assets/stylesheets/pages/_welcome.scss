@@ -1,0 +1,126 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; // Prevent scrolling
+}
+
+.welcome-container {
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  background: none;
+}
+
+#videoCarousel {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .carousel-inner {
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+.video-background {
+  height: 100vh !important;
+  width: 100vw !important;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.video-background {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(236, 239, 240, 0.4));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.custom-overlay-text {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  text-align: center;
+  width: 100vw;
+  h1, p {
+    display: inline-block;
+  }
+  p {
+    font-size: larger;
+  }
+}
+
+.welcome-text-center {
+  background-color: rgba(0, 0, 0, 0.221);
+  margin-bottom: 1em;
+  padding: 0.5em 10rem;
+  border-radius: 0.3rem;
+}
+
+
+#changing-word {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 0.5s, transform 0.5s;
+  transform: translateY(0);
+}
+
+.slide-up-out {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.slide-up-in {
+  opacity: 1;
+  transform: translateY(30px);
+  animation: slideUpIn 0.5s forwards;
+}
+
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.btn-welcome:hover {
+  background-color: darken($blue-2, 10%); // Darken on hover
+}
+
+.btn-welcome-listing {
+  background: rgba(0, 0, 0, 0.265);
+  border-radius: 0.1em;
+  border-color: white
+}
+.btn-welcome-listing:hover {
+  background: rgba(0, 0, 0, 0.642); // Increase alpha for a darker look
+  border-radius: 0.1em;
+  border-color: white;
+}

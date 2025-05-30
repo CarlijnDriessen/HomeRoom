@@ -1,0 +1,68 @@
+<div class="welcome-container d-flex flex-column justify-content-center align-items-center">
+  <div id="videoCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="true">
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="height: 100vh;" data-bs-interval="5000">
+        <video class="d-block w-100 video-background" autoplay muted loop playsinline style="height: 100vh;">
+          <source src="https://res.cloudinary.com/dfysgi371/video/upload/v1748613505/1056-142621450_medium_jdzpkp.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="gradient-overlay"></div>
+      </div>
+      <div class="carousel-item" style="height: 100vh;" data-bs-interval="5000">
+        <video class="d-block w-100 video-background" autoplay muted loop playsinline style="height: 100vh;">
+          <source src="https://res.cloudinary.com/dfysgi371/video/upload/v1748613508/185787-876545918_small_fdb326.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="gradient-overlay"></div>
+      </div>
+      <div class="carousel-item" style="height: 100vh;" data-bs-interval="5000">
+        <video class="d-block w-100 video-background" autoplay muted loop playsinline style="height: 100vh;">
+          <source src="https://res.cloudinary.com/dfysgi371/video/upload/v1748613506/175152-852857786_small_gfr7bf.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="gradient-overlay"></div>
+      </div>
+    </div>
+    <!-- Overlay text OUTSIDE carousel-inner for best results -->
+    <div class="custom-overlay-text d-flex flex-column justify-content-center align-items-center">
+      <div class="d-flex flex-column justify-content-center align-items-center welcome-text-center">
+        <h1 class="display-1 fw-bold text-center">HomeRoom</h1>
+        <p> Your space to <span id="changing-word">connect.</span></p>
+      </div>
+      <div class="d-flex gap-3 justify-content-center">
+        <%= link_to "Browse Listings", listings_path, class: "btn btn-primary btn-welcome-listing btn-lg" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const words = ['connect.', 'create.', 'learn.', 'grow.', 'explore.'];
+  let currentIndex = 0;
+  const wordSpan = document.getElementById('changing-word');
+
+  setInterval(() => {
+    // Slide up and fade out
+    wordSpan.classList.add('slide-up-out');
+    setTimeout(() => {
+      // Change word and prepare for slide-in
+      currentIndex = (currentIndex + 1) % words.length;
+      wordSpan.textContent = words[currentIndex];
+      wordSpan.classList.remove('slide-up-out');
+      wordSpan.classList.add('slide-up-in');
+      setTimeout(() => {
+        wordSpan.classList.remove('slide-up-in');
+      }, 500); // Match transition duration
+    }, 500); // Match transition duration
+  }, 3000);
+</script>
+
+<script>
+  var myCarousel = document.querySelector('#videoCarousel');
+  var carousel = new bootstrap.Carousel(myCarousel, {
+    interval: 3000,
+    ride: 'carousel',
+    pause: false,
+    wrap: true
+  });
+</script>
