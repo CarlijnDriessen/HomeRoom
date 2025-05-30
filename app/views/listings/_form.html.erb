@@ -8,14 +8,25 @@
                   "data-action": "input->char-counter#update",
                   maxlength: 500
                 } %>
-    <div data-char-counter-target="counter" class="small text-secondary">0 / 120</div>
-  </div>
-  <%= f.input :price, input_html: { style: "background-color: #fff;" } %>
-  <%= f.input :category, input_html: { style: "background-color: #fff;" } %>
-  <%= f.input :address, input_html: { style: "background-color: #fff;" } %>
-  <%= f.input :photos, as: :file, input_html: { multiple: true, style: "background-color: #fff;" } %>
-  <div class="text-center mt-3">
-    <%= link_to "Go back", listings_path, class: "btn btn-secondary rounded-pill px-4 py-2 aesthetic-btn", style: "font-size: 1rem;" %>
-    <%= f.submit "Save Listing", class: "btn btn-primary rounded-pill px-4 py-2 aesthetic-btn", style: "background-color: #00B4CC; border-color: #00B4CC; font-size: 1rem;" %>
+  <div data-char-counter-target="counter" class="small text-secondary">0 / 120</div>
+    </div>
+    <%= f.input :price, input_html: { style: "background-color: #fff;" } %>
+    <%= f.input :category, input_html: { style: "background-color: #fff;" } %>
+    <%= f.input :address, input_html: { style: "background-color: #fff;" } %>
+    <%= f.input :photos, as: :file, input_html: { multiple: true, style: "background-color: #fff;" } %>
+    <div class="d-flex justify-content-center align-items-center mt-3 position-relative">
+    <div>
+      <%= link_to "Go back", listings_path, class: "btn btn-secondary rounded-pill px-4 py-2 aesthetic-btn", style: "font-size: 1rem;" %>
+      <%= f.submit "Save Listing", class: "btn btn-primary rounded-pill px-4 py-2 aesthetic-btn mx-2", style: "background-color: #00B4CC; border-color: #00B4CC; font-size: 1rem;" %>
+    </div>
+    <% if @listing.persisted? %>
+      <div class="position-absolute end-0">
+        <%= link_to listing_path(@listing),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          class: "btn btn-danger btn-sm rounded-pill aesthetic-btn text-white" do %>
+          <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>
