@@ -1,0 +1,60 @@
+.modal-content {
+  border-radius: 1rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.modal-title {
+  color: #212529;
+  font-weight: 700;
+}
+
+.modal-body {
+  padding-top: 0.5rem;
+}
+
+.modal .form-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.modal .form-control {
+  border-radius: 1rem;
+  box-shadow: none;
+  border: 1px solid #dee2e6;
+  font-size: 14px;
+}
+
+.modal .form-control:focus {
+  border-color: #00B4CC;
+  box-shadow: 0 0 0 0.1rem rgba(0, 180, 204, 0.25);
+}
+
+.modal-footer .btn-close-custom {
+  display: inline-block;
+  text-decoration: none;
+  color: $orange-2;
+  font-size: 13px;
+  text-align: center;
+  line-height: 38px;
+  border-radius: 100px;
+  transition: all 0.3s;
+  background: #fff;
+  width: 120px;
+  margin-right: 10px;
+  border: 2px solid $orange;
+
+  &:hover {
+    box-shadow: 0 10px 20px rgba(204, 95, 0, 0.3);
+  }
+}
+
+.modal-footer .white-blue-button {
+  padding: 0;
+}
