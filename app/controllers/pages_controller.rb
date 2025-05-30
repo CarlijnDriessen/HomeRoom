@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!, only: :welcome
 
   def dashboard
     @listings = current_user.listings # Fetch all listings created by the current user
@@ -21,4 +22,8 @@ class PagesController < ApplicationController
     @review = Review.new
     @listing = @review.listing
   end
+
+  def welcome
+  end
+
 end
