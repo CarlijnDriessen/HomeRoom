@@ -22,7 +22,7 @@
     <% if @listing.persisted? %>
       <div class="position-absolute end-0">
         <%= link_to listing_path(@listing),
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          data: { turbo_method: :delete },
           class: "btn btn-danger btn-sm rounded-pill aesthetic-btn text-white" do %>
           <i class="fa-regular fa-trash-can"></i>
         <% end %>

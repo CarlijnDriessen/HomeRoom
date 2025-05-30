@@ -53,7 +53,7 @@ class ListingsController < ApplicationController
 
   def destroy
     @listing.destroy
-    redirect_to listings_path, status: :see_other
+    redirect_to dashboard_path, notice: 'Listing was successfully deleted.'
   end
 
   def activate
