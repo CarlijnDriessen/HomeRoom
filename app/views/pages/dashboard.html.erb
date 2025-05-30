@@ -39,9 +39,9 @@
                             </div>
                             <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
                               <%= link_to "Edit listing", edit_listing_path(listing), class: "btn btn-warning btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2 text-white" %>
-                              <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
+                                <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
                                 <%= hidden_field_tag :tab, 'host' %>
-                                <%= submit_tag "Set to active", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn" %>
+                                <%= submit_tag "Set inactive", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn", style: "background-color: #00B4CC; border-color: #00B4CC;" %>
                               <% end %>
                             </div>
                           </div>
@@ -318,7 +318,7 @@
                         </div>
                       </div>
                       <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
-                        <%= link_to "Edit", edit_booking_path(booking), class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2" %>
+                        <%= link_to "Edit", edit_booking_path(booking), class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2", style: "background-color: #00B4CC; border-color: #00B4CC;" %>
                         <%= link_to booking_path(booking),
                           data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger btn-sm rounded-pill px-3 py-2 aesthetic-btn text-white" do %>
                           <i class="fa-regular fa-trash-can"></i>
@@ -453,18 +453,41 @@
         </label>
           </div>
             <div class="d-flex justify-content-center my-3">
-            <% if current_user.photo.attached? %>
-              <%= cl_image_tag current_user.photo.key, class: "rounded-circle shadow", width: 130, height: 130 %>
-            <% else %>
-              <%= image_tag "default_avatar.png", class: "rounded-circle shadow", width: 130, height: 130 %>
+            <% avatar_classes = "rounded-circle shadow" %>
+            <% if current_user.listings.count >= 5 %>
+            <% avatar_classes += " border border-3 border-custom-blue" %>
             <% end %>
+
+            <div class="avatar-container">
+              <% if current_user.photo.attached? %>
+                <%= cl_image_tag current_user.photo.key, class: avatar_classes, width: 130, height: 130 %>
+              <% else %>
+                <%= image_tag "default_avatar.png", class: avatar_classes, width: 130, height: 130 %>
+              <% end %>
+
+              <% if current_user.listings.count >= 5 %>
+                <i class="fa-solid fa-circle-check check-icon fa-xl" style="color: #00B4CC;"></i>
+              <% end %>
             </div>
+          </div>
+
+
           <h4 class="card-title mb-3 text-dark">
           <div class="text-center">
             <strong><%= current_user.first_name %></strong>
             <p class="text-center" style="font-size: 0.5em;"><%= current_user.address %></p>
           </div>
           </h4>
+          <div class="row text-center mb-3">
+            <div class="col-6">
+              <p class="mb-1 fw-bold" style="font-size: 1.2em;"><%= current_user.listings.count %></p>
+              <p class="mb-0">Listings</p>
+            </div>
+            <div class="col-6">
+              <p class="mb-1 fw-bold" style="font-size: 1.2em;"><%= current_user.bookings.count %></p>
+              <p class="mb-0">Bookings</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
