@@ -39,7 +39,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-end align-items-center bg-transparent border-top-0 pt-0 pb-4 px-4">
                               <%= link_to "Edit listing", edit_listing_path(listing), class: "btn btn-warning btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2 text-white" %>
-                                <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
+                                <%= form_with url: deactivate_listing_path(listing), method: :patch, local: true do %>
                                 <%= hidden_field_tag :tab, 'host' %>
                                 <%= submit_tag "Set inactive", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn", style: "background-color: #00B4CC; border-color: #00B4CC;" %>
                               <% end %>
@@ -91,7 +91,7 @@
                               <%= link_to "Edit listing", edit_listing_path(listing), class: "btn btn-warning btn-sm rounded-pill px-3 py-2 aesthetic-btn mx-2 text-white" %>
                               <%= form_with url: activate_listing_path(listing), method: :patch, local: true do %>
                                 <%= hidden_field_tag :tab, 'host' %>
-                                <%= submit_tag "Set to active", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn" %>
+                                <%= submit_tag "Set to active", class: "btn btn-primary btn-sm rounded-pill px-3 py-2 aesthetic-btn", style: "background-color: #00B4CC; border-color: #00B4CC;" %>
                               <% end %>
                             </div>
                           </div>
